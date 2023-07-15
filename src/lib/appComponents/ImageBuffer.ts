@@ -13,10 +13,4 @@ export default class ImageBuffer implements BufferI {
 	preload() {
 		this.img = this.p5.loadImage(this.uri)
 	}
-	setup() {
-		return
-	}
-	draw() {
-		return
-	}
 }

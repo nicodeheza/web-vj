@@ -30,10 +30,24 @@
 			trans.x = posX
 			trans.y = posY
 			trans.rotation = rot
+			pivotX = trans.pivotX
+			pivotY = trans.pivotY
 			trans.pivotX = pivotX
 			trans.pivotY = pivotY
 
 			trans.draw()
+		}
+		p5.keyPressed = () => {
+			trans.keyPressed()
+		}
+		p5.mousePressed = () => {
+			trans.mousePressed()
+		}
+		p5.mouseDragged = () => {
+			trans.mouseDragged()
+		}
+		p5.mouseReleased = () => {
+			trans.mouseReleased()
 		}
 	}
 </script>

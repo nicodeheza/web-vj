@@ -1,9 +1,13 @@
 import type p5 from 'p5'
 
 export interface P5compatible {
-	preload: () => void
-	setup: () => void
-	draw: () => void
+	preload?: () => void
+	setup?: () => void
+	draw?: () => void
+	keyPressed?: () => void
+	mousePressed?: () => void
+	mouseDragged?: () => void
+	mouseReleased?: () => void
 }
 
 export interface AssetComponentI {
@@ -22,12 +26,13 @@ export interface AssetComponentI {
 	draw: () => void
 }
 
-export interface BufferI extends P5compatible {
+export interface BufferI {
 	uri: string
 	img?: p5.Image
+	preload: () => void
 }
 
-export interface TransformationsI extends P5compatible {
+export interface TransformationsI {
 	width: number
 	height: number
 	x: number
@@ -36,4 +41,11 @@ export interface TransformationsI extends P5compatible {
 	scale: number
 	pivotX: number
 	pivotY: number
+	preload: () => void
+	setup: () => void
+	draw: () => void
+	keyPressed: () => void
+	mousePressed: () => void
+	mouseDragged: () => void
+	mouseReleased: () => void
 }
