@@ -4,12 +4,14 @@
 	export let sketch: (p5: P5) => void
 
 	let element: HTMLDivElement
+	let instance: P5
 
 	onMount(async () => {
 		const lib = await import('p5')
 		const { default: P5 } = lib
 		if (!element && window) return
-		new P5(sketch, element)
+		if (instance) return
+		instance = new P5(sketch, element)
 	})
 </script>
 

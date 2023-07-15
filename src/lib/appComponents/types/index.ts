@@ -13,5 +13,11 @@ export interface AssetComponentI {
 	output: p5.Graphics | undefined
 	preload: () => void
 	setup: () => void
-	display: () => void
+	draw: () => void
+}
+
+export interface ImageBufferI {
+	img: p5.Image | undefined
+	uri: string
+	preload: () => void
 }
