@@ -6,6 +6,7 @@ export default class Transformations implements TransformationsI {
 	private img?: P5.Image
 	private p5: P5
 	private canMovePivot = false
+	private canMoveScale = false
 	interactiveMode = false
 	width: number
 	height: number
@@ -15,6 +16,7 @@ export default class Transformations implements TransformationsI {
 	scale = 1
 	pivotX = 0
 	pivotY = 0
+	init = [0, 0]
 
 	constructor(buffer: BufferI, compWidth: number, compHeight: number, p5: P5) {
 		this.buffer = buffer
@@ -57,6 +59,16 @@ export default class Transformations implements TransformationsI {
 		if (this.p5.keyCode === 73) {
 			this.interactiveMode = !this.interactiveMode
 		}
+		if (this.interactiveMode) {
+			console.log(this.p5.keyCode)
+			switch (this.p5.keyCode) {
+				case 83:
+					this.canMoveScale = true
+					break
+				default:
+					break
+			}
+		}
 		return false
 	}
 
@@ -73,6 +85,9 @@ export default class Transformations implements TransformationsI {
 			if (isOnCircle) {
 				this.canMovePivot = true
 			}
+			if (this.canMoveScale) {
+				this.init = [this.p5.mouseX, this.p5.mouseY]
+			}
 		}
 
 		return false
@@ -84,16 +99,23 @@ export default class Transformations implements TransformationsI {
 			this.pivotX = mx
 			this.pivotY = my
 		}
-		return false
-	}
 
-	mouseReleased() {
-		if (this.canMovePivot) {
-			this.canMovePivot = false
+		if (this.canMoveScale) {
+			let newScale = this.p5.dist(this.init[0], this.init[1], this.p5.mouseX, this.p5.mouseY)
+			newScale *= 0.01
+			console.log(newScale)
+			this.scale = newScale
 		}
 		return false
 	}
 
+	mouseReleased() {
+		if (this.canMovePivot) this.canMovePivot = false
+		if (this.canMoveScale) this.canMoveScale = false
+		return false
+	}
+
+	// add scale, rotation and position
 	private getMousePos() {
 		const { mouseX, mouseY } = this.p5
 		const mx = (this.width / 2 - mouseX) * -1
