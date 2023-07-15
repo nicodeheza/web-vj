@@ -81,10 +81,8 @@ export default class Transformations implements TransformationsI {
 	mouseDragged() {
 		if (this.canMovePivot) {
 			const [mx, my] = this.getMousePos()
-			console.log(mx, my)
 			this.pivotX = mx
 			this.pivotY = my
-			console.log(this.pivotX, this.pivotY)
 		}
 		return false
 	}
