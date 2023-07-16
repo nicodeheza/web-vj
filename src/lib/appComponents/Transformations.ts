@@ -5,9 +5,6 @@ export default class Transformations implements TransformationsI {
 	private buffer: BufferI
 	private img?: P5.Image
 	private p5: P5
-	private canMovePivot = false
-	private canMoveScale = false
-	interactiveMode = false
 	width: number
 	height: number
 	x = 0
@@ -16,7 +13,9 @@ export default class Transformations implements TransformationsI {
 	scale = 1
 	pivotX = 0
 	pivotY = 0
-	init = [0, 0]
+	lPivotX = 0
+	lPivotY = 0
+	showPivot = false
 
 	constructor(buffer: BufferI, compWidth: number, compHeight: number, p5: P5) {
 		this.buffer = buffer
@@ -45,90 +44,15 @@ export default class Transformations implements TransformationsI {
 		this.p5.scale(this.scale)
 		this.p5.image(this.img, x, y)
 
-		if (this.interactiveMode) {
+		if (this.showPivot) {
 			this.p5.fill('red')
 			this.p5.noStroke()
 			this.p5.ellipse(this.x, this.y, 10 / this.scale)
-			this.transformRect(x, y, this.img.width, this.img.height)
 		}
+
+		this.lPivotX = this.pivotX
+		this.lPivotY = this.pivotY
 
 		this.p5.pop()
-	}
-
-	keyPressed() {
-		if (this.p5.keyCode === 73) {
-			this.interactiveMode = !this.interactiveMode
-		}
-		if (this.interactiveMode) {
-			console.log(this.p5.keyCode)
-			switch (this.p5.keyCode) {
-				case 83:
-					this.canMoveScale = true
-					break
-				default:
-					break
-			}
-		}
-		return false
-	}
-
-	mousePressed() {
-		if (this.interactiveMode) {
-			const [mx, my] = this.getMousePos()
-
-			const isOnCircle =
-				mx >= this.pivotX - 5 &&
-				mx <= this.pivotX + 5 &&
-				my >= this.pivotY - 5 &&
-				my <= this.pivotY + 5
-
-			if (isOnCircle) {
-				this.canMovePivot = true
-			}
-			if (this.canMoveScale) {
-				this.init = [this.p5.mouseX, this.p5.mouseY]
-			}
-		}
-
-		return false
-	}
-
-	mouseDragged() {
-		if (this.canMovePivot) {
-			const [mx, my] = this.getMousePos()
-			this.pivotX = mx
-			this.pivotY = my
-		}
-
-		if (this.canMoveScale) {
-			let newScale = this.p5.dist(this.init[0], this.init[1], this.p5.mouseX, this.p5.mouseY)
-			newScale *= 0.01
-			console.log(newScale)
-			this.scale = newScale
-		}
-		return false
-	}
-
-	mouseReleased() {
-		if (this.canMovePivot) this.canMovePivot = false
-		if (this.canMoveScale) this.canMoveScale = false
-		return false
-	}
-
-	// add scale, rotation and position
-	private getMousePos() {
-		const { mouseX, mouseY } = this.p5
-		const mx = (this.width / 2 - mouseX) * -1
-		const my = (this.height / 2 - mouseY) * -1
-		return [mx, my]
-	}
-
-	private transformRect(x: number, y: number, w: number, h: number) {
-		const p5 = this.p5
-
-		p5.noFill()
-		p5.stroke('red')
-		p5.strokeWeight(2)
-		p5.rect(x, y, w, h)
 	}
 }

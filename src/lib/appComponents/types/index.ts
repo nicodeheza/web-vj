@@ -4,10 +4,6 @@ export interface P5compatible {
 	preload?: () => void
 	setup?: () => void
 	draw?: () => void
-	keyPressed?: () => void
-	mousePressed?: () => void
-	mouseDragged?: () => void
-	mouseReleased?: () => void
 }
 
 export interface AssetComponentI {
@@ -44,8 +40,4 @@ export interface TransformationsI {
 	preload: () => void
 	setup: () => void
 	draw: () => void
-	keyPressed: () => void
-	mousePressed: () => void
-	mouseDragged: () => void
-	mouseReleased: () => void
 }
