@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Composition from '$lib/appComponents/Composition'
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
 	import ImageComponent from '$lib/appComponents/ImageComponent'
 	import Transformations from '$lib/appComponents/Transformations'
@@ -15,15 +16,20 @@
 
 	const sketch = (p5: P5) => {
 		const buffer = new ImageBuffer('img/test.jpg', p5)
-		const trans = new Transformations(buffer, 600, 600, p5)
+		const trans = new Transformations(buffer, 600, 600, 'test', p5)
+		const trans2 = new Transformations(buffer, 600, 600, 'test2', p5)
+		const composition = new Composition()
+		composition.add(trans)
+		composition.add(trans2)
+		composition.moveFront('test')
 
 		p5.preload = () => {
-			trans.preload()
+			composition.preload()
 		}
 		p5.setup = () => {
 			p5.pixelDensity(1)
 			p5.createCanvas(600, 600, p5.WEBGL)
-			trans.setup()
+			composition.setup()
 		}
 		p5.draw = () => {
 			p5.background(0, 0, 255)
@@ -35,7 +41,7 @@
 			trans.pivotY = pivotY
 			trans.showPivot = showPivot
 
-			trans.draw()
+			composition.draw()
 		}
 	}
 </script>

@@ -37,7 +37,19 @@ export interface TransformationsI {
 	scale: number
 	pivotX: number
 	pivotY: number
+	id: string
 	preload: () => void
 	setup: () => void
 	draw: () => void
+	updateId: (newId: string) => void
+}
+
+export interface CompositionI {
+	preload: () => void
+	setup: () => void
+	draw: () => void
+	add: (transformation: TransformationsI) => void
+	delete: (id: string) => void
+	moveBack: (id: string) => void
+	moveFront: (id: string) => void
 }

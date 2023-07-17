@@ -5,6 +5,7 @@ export default class Transformations implements TransformationsI {
 	private buffer: BufferI
 	private img?: P5.Image
 	private p5: P5
+	id: string
 	width: number
 	height: number
 	x = 0
@@ -17,11 +18,12 @@ export default class Transformations implements TransformationsI {
 	lPivotY = 0
 	showPivot = false
 
-	constructor(buffer: BufferI, compWidth: number, compHeight: number, p5: P5) {
+	constructor(buffer: BufferI, compWidth: number, compHeight: number, id: string, p5: P5) {
 		this.buffer = buffer
 		this.p5 = p5
 		this.width = compWidth
 		this.height = compHeight
+		this.id = id
 	}
 
 	preload() {
@@ -54,5 +56,9 @@ export default class Transformations implements TransformationsI {
 		this.lPivotY = this.pivotY
 
 		this.p5.pop()
+	}
+
+	updateId(newId: string) {
+		this.id = newId
 	}
 }
