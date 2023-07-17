@@ -3,6 +3,7 @@
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
 	import ImageComponent from '$lib/appComponents/ImageComponent'
 	import Transformations from '$lib/appComponents/Transformations'
+	import VideoBuffer from '$lib/appComponents/VideoBuffer'
 	import P5Canvas from '../../components/P5Canvas.svelte'
 	import type P5 from 'p5'
 
@@ -16,12 +17,13 @@
 
 	const sketch = (p5: P5) => {
 		const buffer = new ImageBuffer('img/test.jpg', p5)
+		const buffer2 = new VideoBuffer('vid/test.mp4', p5)
 		const trans = new Transformations(buffer, 600, 600, 'test', p5)
-		const trans2 = new Transformations(buffer, 600, 600, 'test2', p5)
+		const trans2 = new Transformations(buffer2, 600, 600, 'test2', p5)
 		const composition = new Composition()
 		composition.add(trans)
 		composition.add(trans2)
-		composition.moveFront('test')
+		// composition.moveFront('test')
 
 		p5.preload = () => {
 			composition.preload()
@@ -33,13 +35,13 @@
 		}
 		p5.draw = () => {
 			p5.background(0, 0, 255)
-			trans.scale = scale
-			trans.x = posX
-			trans.y = posY
-			trans.rotation = rot
-			trans.pivotX = pivotX
-			trans.pivotY = pivotY
-			trans.showPivot = showPivot
+			trans2.scale = scale
+			trans2.x = posX
+			trans2.y = posY
+			trans2.rotation = rot
+			trans2.pivotX = pivotX
+			trans2.pivotY = pivotY
+			trans2.showPivot = showPivot
 
 			composition.draw()
 		}

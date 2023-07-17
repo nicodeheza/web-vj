@@ -2,21 +2,24 @@ import type { TransformationsI, CompositionI } from './types'
 
 export default class Composition implements CompositionI {
 	private transformations: TransformationsI[] = []
-	private ids: Record<string, number> = {}
+	private ids: Record<string, boolean> = {}
 
 	add(transformation: TransformationsI) {
 		const id = transformation.id
 		if (this.ids[id]) throw new Error('id must be unique')
 		this.transformations.push(transformation)
-		this.ids[id] = this.transformations.length - 1
+		this.ids[id] = true
 	}
 
 	delete(id: string) {
+		if (!this.ids[id]) throw new Error('id not exist')
 		this.transformations = this.transformations.filter((t) => t.id != id)
+		this.ids[id] = false
 	}
 
 	moveBack(id: string) {
-		const index = this.ids[id]
+		const index = this.transformations.findIndex((ele) => ele.id === id)
+		if (index < 0) throw new Error('id not exist')
 		if (index > 0) {
 			const ele = this.transformations[index]
 			this.transformations[index] = this.transformations[index - 1]
@@ -25,7 +28,8 @@ export default class Composition implements CompositionI {
 	}
 
 	moveFront(id: string) {
-		const index = this.ids[id]
+		const index = this.transformations.findIndex((ele) => ele.id === id)
+		if (index < 0) throw new Error('id not exist')
 		if (index < this.transformations.length - 1) {
 			const ele = this.transformations[index]
 			this.transformations[index] = this.transformations[index + 1]

@@ -26,6 +26,8 @@ export interface BufferI {
 	uri: string
 	img?: p5.Image
 	preload: () => void
+	setup?: () => void
+	draw?: () => void
 }
 
 export interface TransformationsI {
