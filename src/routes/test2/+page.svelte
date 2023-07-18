@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BufferRenderer from '$lib/appComponents/BufferRenderer'
 	import Composition from '$lib/appComponents/Composition'
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
 	import Shader from '$lib/appComponents/Shader'
@@ -26,18 +27,21 @@
 		const composition = new Composition()
 		composition.add(trans)
 		composition.add(trans2)
+
+		const renderer = new BufferRenderer(composition, p5)
 		// composition.moveFront('test')
 
 		p5.preload = () => {
-			composition.preload()
+			renderer.preload()
 		}
 		p5.setup = () => {
 			p5.pixelDensity(1)
 			p5.createCanvas(600, 600, p5.WEBGL)
 			p5.noStroke()
-			composition.setup()
+			renderer.setup()
 		}
 		p5.draw = () => {
+			if (!renderer.img) return
 			p5.background(0, 0, 255)
 			trans2.scale = scale
 			trans2.x = posX
@@ -47,7 +51,8 @@
 			trans2.pivotY = pivotY
 			trans2.showPivot = showPivot
 
-			composition.draw()
+			renderer.draw()
+			p5.image(renderer.img, 0 - p5.width / 2, 0 - p5.height / 2)
 		}
 	}
 </script>

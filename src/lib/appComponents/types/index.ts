@@ -6,6 +6,12 @@ export interface P5compatible {
 	draw?: () => void
 }
 
+export interface P5RenderElement {
+	preload?: () => void
+	setup?: () => void
+	draw: () => void
+}
+
 export interface AssetComponentI {
 	p5: p5
 	img: p5.Image | undefined
@@ -54,4 +60,14 @@ export interface CompositionI {
 	delete: (id: string) => void
 	moveBack: (id: string) => void
 	moveFront: (id: string) => void
+}
+
+export interface FrameBuffer extends p5.Image {
+	begin: () => void
+	end: () => void
+	resize: (w: number, h: number) => void
+}
+
+export interface FrameBufferP5 extends p5 {
+	createFramebuffer: (arg?: unknown) => FrameBuffer
 }

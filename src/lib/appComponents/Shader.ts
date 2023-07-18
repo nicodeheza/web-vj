@@ -1,14 +1,5 @@
 import type P5 from 'p5'
-import type { BufferI } from './types'
-
-interface FrameBuffer extends P5.Image {
-	begin: () => void
-	end: () => void
-	resize: (w: number, h: number) => void
-}
-interface ShaderP5 extends P5 {
-	createFramebuffer: (arg?: unknown) => FrameBuffer
-}
+import type { BufferI, FrameBuffer, FrameBufferP5 } from './types'
 
 export default class Shader implements BufferI {
 	private p5: P5
@@ -57,7 +48,7 @@ export default class Shader implements BufferI {
 	}
 
 	setup() {
-		this.img = (this.p5 as ShaderP5).createFramebuffer()
+		this.img = (this.p5 as FrameBufferP5).createFramebuffer()
 		if (this.u_texture) {
 			if (this.u_texture.setup) this.u_texture.setup()
 			if (this.u_texture.img) {
