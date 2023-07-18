@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Composition from '$lib/appComponents/Composition'
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
-	import ImageComponent from '$lib/appComponents/ImageComponent'
+	import Shader from '$lib/appComponents/Shader'
 	import Transformations from '$lib/appComponents/Transformations'
 	import VideoBuffer from '$lib/appComponents/VideoBuffer'
 	import P5Canvas from '../../components/P5Canvas.svelte'
@@ -18,8 +18,11 @@
 	const sketch = (p5: P5) => {
 		const buffer = new ImageBuffer('img/test.jpg', p5)
 		const buffer2 = new VideoBuffer('vid/test.mp4', p5)
+		const shader = new Shader(p5)
+		shader.setShader('shaders/invert/invert.vert', 'shaders/invert/invert.frag')
+		shader.setImageU(buffer2)
 		const trans = new Transformations(buffer, 600, 600, 'test', p5)
-		const trans2 = new Transformations(buffer2, 600, 600, 'test2', p5)
+		const trans2 = new Transformations(shader, 600, 600, 'test2', p5)
 		const composition = new Composition()
 		composition.add(trans)
 		composition.add(trans2)
@@ -31,6 +34,7 @@
 		p5.setup = () => {
 			p5.pixelDensity(1)
 			p5.createCanvas(600, 600, p5.WEBGL)
+			p5.noStroke()
 			composition.setup()
 		}
 		p5.draw = () => {
