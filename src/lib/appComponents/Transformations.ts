@@ -36,10 +36,6 @@ export default class Transformations implements TransformationsI {
 	}
 
 	draw() {
-		if (this.buffer.draw) {
-			this.buffer.draw()
-			this.img = this.buffer.img
-		}
 		if (!this.img) return
 		const x = (this.img.width / 2) * -1 + this.x - this.pivotX
 		const y = (this.img.height / 2) * -1 + this.y - this.pivotY
