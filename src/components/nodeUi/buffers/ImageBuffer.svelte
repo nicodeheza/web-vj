@@ -2,6 +2,7 @@
 	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
 	import { globalP5 } from 'store/p5'
+	import BufferBase from './BufferBase.svelte'
 
 	let instance: ImageBuffer
 	let textVal = 'img/test.jpg'
@@ -35,19 +36,11 @@
 		})
 	}
 	$: if ($input.uri.set && act) {
+		console.log('ok')
 		$input.uri.set(textVal)
 	}
 
 	const output = generateOutput(input, processor)
 </script>
 
-<Node width={200} height={100} bgColor="#016191">
-	<div class="node">
-		<div class="input">
-			<input type="text" bind:value={textVal} />
-		</div>
-		<div class="output">
-			<Anchor outputStore={output} output />
-		</div>
-	</div>
-</Node>
+<BufferBase name="Image Buffer" bind:textVal outputStore={output} />
