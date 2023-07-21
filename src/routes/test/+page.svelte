@@ -1,5 +1,5 @@
 <script lang="ts">
-	import P5Canvas from '../../components/P5Canvas.svelte'
+	import P5Canvas from 'components/P5Canvas.svelte'
 	import type P5 from 'p5'
 
 	let posX = 100
