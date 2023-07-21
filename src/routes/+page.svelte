@@ -1,2 +1,27 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import P5ScreenRenderer from 'components/P5ScreenRenderer.svelte'
+	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
+	import TestNodeData from 'components/nodeUi/TestNodeData.svelte'
+	import ImageBuffer from 'components/nodeUi/buffers/ImageBuffer.svelte'
+</script>
+
+<div class="videoOutput">
+	<P5ScreenRenderer />
+</div>
+<div class="nodeUI">
+	<NodeCanvas>
+		<ImageBuffer />
+		<!-- <TestNodeData /> -->
+	</NodeCanvas>
+</div>
+
+<style>
+	.videoOutput,
+	.nodeUI {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>
