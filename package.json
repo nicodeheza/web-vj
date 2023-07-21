@@ -31,10 +31,5 @@
 		"vite": "^4.4.2",
 		"vitest": "^0.32.2"
 	},
-	"type": "module",
-	"dependencies": {
-		"rete-connection-plugin": "^2.0.0",
-		"rete-render-utils": "^2.0.1",
-		"rete-svelte-plugin": "^2.0.0"
-	}
+	"type": "module"
 }
