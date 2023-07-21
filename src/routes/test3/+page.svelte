@@ -5,6 +5,7 @@
 </script>
 
 <div class="nodesContainer">
+	<div class="sketch" />
 	<NodeCanvas>
 		<TestNode />
 		<TestNodeData />
@@ -19,6 +20,14 @@
 		min-height: 100vh;
 	}
 	.nodesContainer {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.sketch {
+		background-color: black;
 		position: absolute;
 		left: 0;
 		top: 0;
