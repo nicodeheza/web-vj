@@ -3,7 +3,7 @@
 	import Composition from '$lib/appComponents/Composition'
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
 	import Shader from '$lib/appComponents/Shader'
-	import Transformations from '$lib/appComponents/Transformations'
+	import Transformations from '$lib/appComponents/Transformation'
 	import VideoBuffer from '$lib/appComponents/VideoBuffer'
 	import P5Canvas from 'components/P5Canvas.svelte'
 	import type P5 from 'p5'
