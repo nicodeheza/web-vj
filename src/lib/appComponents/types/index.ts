@@ -49,7 +49,6 @@ export interface TransformationsI {
 	preload: () => void
 	setup: () => void
 	draw: () => void
-	updateId: (newId: string) => void
 }
 
 export interface CompositionI {

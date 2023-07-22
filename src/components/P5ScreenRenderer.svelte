@@ -1,9 +1,15 @@
 <script lang="ts">
 	import type P5 from 'p5'
-	import { bufferOutput } from 'store/p5'
+	import { bufferOutput, resolution } from 'store/p5'
 	import P5Canvas from './P5Canvas.svelte'
+	import { onMount } from 'svelte'
 	let w: number
 	let h: number
+
+	$: {
+		resolution.set({ w, h })
+	}
+
 	const sketch = (p5: P5) => {
 		p5.preload = () => {
 			$bufferOutput.preload()

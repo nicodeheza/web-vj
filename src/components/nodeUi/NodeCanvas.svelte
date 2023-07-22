@@ -19,7 +19,8 @@
 		height: 100%;
 	}
 	:global(.svelvet-node) {
-		background-color: rgba(119, 119, 119, 0.35) !important;
+		background-color: rgba(131, 131, 131, 0.3) !important;
+		backdrop-filter: blur(4px);
 		padding: 0 !important;
 	}
 

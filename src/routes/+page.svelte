@@ -1,7 +1,7 @@
 <script>
 	import P5ScreenRenderer from 'components/P5ScreenRenderer.svelte'
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
-	import TestNodeData from 'components/nodeUi/TestNodeData.svelte'
+	import Transformation from 'components/nodeUi/Transformatio.svelte'
 	import ImageBuffer from 'components/nodeUi/buffers/ImageBuffer.svelte'
 </script>
 
@@ -11,7 +11,7 @@
 <div class="nodeUI">
 	<NodeCanvas>
 		<ImageBuffer />
-		<!-- <TestNodeData /> -->
+		<Transformation />
 	</NodeCanvas>
 </div>
 

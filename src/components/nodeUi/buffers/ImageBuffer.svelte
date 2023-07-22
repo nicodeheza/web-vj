@@ -36,7 +36,6 @@
 		})
 	}
 	$: if ($input.uri.set && act) {
-		console.log('ok')
 		$input.uri.set(textVal)
 	}
 
