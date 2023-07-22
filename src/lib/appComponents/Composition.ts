@@ -1,7 +1,7 @@
 import type { TransformationsI, CompositionI } from './types'
 
 export default class Composition implements CompositionI {
-	private transformations: TransformationsI[] = []
+	transformations: TransformationsI[] = []
 	private ids: Record<string, boolean> = {}
 
 	add(transformation: TransformationsI) {

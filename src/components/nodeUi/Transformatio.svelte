@@ -5,6 +5,7 @@
 	import { Anchor, Node, Slider, generateInput, generateOutput } from 'svelvet'
 
 	let instance: Transformations
+	let name: string
 
 	interface Inputs {
 		x: number
@@ -14,6 +15,7 @@
 		pivoteX: number
 		pivoteY: number
 		buffer: BufferI | boolean
+		name: string
 	}
 
 	const initialData = {
@@ -23,7 +25,8 @@
 		scale: 1,
 		pivoteX: 0,
 		pivoteY: 0,
-		buffer: false
+		buffer: false,
+		name: ''
 	}
 
 	const inputs = generateInput(initialData)
@@ -36,12 +39,14 @@
 			instance.scale = inputs.scale
 			instance.pivotX = inputs.pivoteX
 			instance.pivotY = inputs.pivoteY
+			instance.name = inputs.name
 			instance.buffer = inputs.buffer as BufferI
 		} else if (inputs.buffer) {
 			instance = new Transformations(
 				inputs.buffer as BufferI,
 				$resolution.w,
 				$resolution.h,
+				inputs.name,
 				$globalP5
 			)
 		}
@@ -50,14 +55,19 @@
 	}
 
 	const output = generateOutput(inputs, processor)
+
+	$: if ($inputs.name.set) {
+		$inputs.name.set(name)
+	}
 </script>
 
-<Node width={250} height={250} useDefaults>
+<Node width={250} height={270} useDefaults>
 	<div class="node">
 		<div class="node-title name">
-			<h1>Transformations</h1>
+			<h1>Screen Element</h1>
 		</div>
 		<div class="sliders">
+			<input type="text" placeholder="Name" bind:value={name} />
 			<Slider
 				parameterStore={$inputs.x}
 				min={$resolution.w * -2}
@@ -101,7 +111,7 @@
 <style>
 	.node {
 		padding: 0px 15px;
-		margin-bottom: 15px;
+		margin-bottom: 20px;
 	}
 	.name {
 		background-color: rgb(1, 128, 128);
@@ -116,15 +126,23 @@
 		color: rgb(216, 216, 216) !important;
 	}
 
+	.sliders input {
+		align-self: center;
+		width: 140px;
+		border-radius: 7px;
+		height: 22px;
+		padding-left: 10px;
+	}
+
 	.input-anchor {
 		position: absolute;
 		left: -6px;
-		bottom: 108px;
+		bottom: 118px;
 	}
 
 	.output-anchor {
 		position: absolute;
 		right: -6px;
-		bottom: 108px;
+		bottom: 118px;
 	}
 </style>

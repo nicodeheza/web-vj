@@ -46,6 +46,7 @@ export interface TransformationsI {
 	pivotX: number
 	pivotY: number
 	id: string
+	name: string
 	preload: () => void
 	setup: () => void
 	draw: () => void
