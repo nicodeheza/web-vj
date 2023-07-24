@@ -60,6 +60,7 @@ export interface CompositionI {
 	delete: (id: string) => void
 	moveBack: (id: string) => void
 	moveFront: (id: string) => void
+	transformations: TransformationsI[]
 }
 
 export interface FrameBuffer extends p5.Image {
