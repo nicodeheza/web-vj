@@ -2,7 +2,7 @@ import type { TransformationsI, CompositionI } from './types'
 
 export default class Composition implements CompositionI {
 	transformations: TransformationsI[] = []
-	private ids: Record<string, boolean> = {}
+	ids: Record<string, boolean> = {}
 
 	add(transformation: TransformationsI) {
 		const id = transformation.id

@@ -3,9 +3,11 @@
 	import type { BufferI } from '$lib/appComponents/types'
 	import { globalP5, resolution } from 'store/p5'
 	import { Anchor, Node, Slider, generateInput, generateOutput } from 'svelvet'
+	import { v4 as uuidv4 } from 'uuid'
 
 	let instance: Transformations
 	let name: string
+	let id = uuidv4()
 
 	interface Inputs {
 		x: number
@@ -47,11 +49,12 @@
 				$resolution.w,
 				$resolution.h,
 				inputs.name,
+				id,
 				$globalP5
 			)
 		}
 
-		return instance
+		return [instance]
 	}
 
 	const output = generateOutput(inputs, processor)
@@ -61,7 +64,7 @@
 	}
 </script>
 
-<Node width={250} height={270} useDefaults>
+<Node width={250} height={270} {id} useDefaults>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Screen Element</h1>
@@ -103,7 +106,7 @@
 			<Anchor key="buffer" inputsStore={inputs} input />
 		</div>
 		<div class="output-anchor">
-			<Anchor outputStore={output} output />
+			<Anchor id={`${id}-output`} outputStore={output} output />
 		</div>
 	</div>
 </Node>

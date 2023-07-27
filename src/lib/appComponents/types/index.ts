@@ -61,6 +61,7 @@ export interface CompositionI {
 	moveBack: (id: string) => void
 	moveFront: (id: string) => void
 	transformations: TransformationsI[]
+	ids: Record<string, boolean>
 }
 
 export interface FrameBuffer extends p5.Image {

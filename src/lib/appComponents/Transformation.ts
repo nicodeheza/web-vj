@@ -1,6 +1,5 @@
 import type P5 from 'p5'
 import type { BufferI, TransformationsI } from './types'
-import { v4 as uuidv4 } from 'uuid'
 
 export default class Transformations implements TransformationsI {
 	private p5: P5
@@ -19,13 +18,20 @@ export default class Transformations implements TransformationsI {
 	lPivotY = 0
 	showPivot = false
 
-	constructor(buffer: BufferI, compWidth: number, compHeight: number, name: string, p5: P5) {
+	constructor(
+		buffer: BufferI,
+		compWidth: number,
+		compHeight: number,
+		name: string,
+		id: string,
+		p5: P5
+	) {
 		this.buffer = buffer
 		this.p5 = p5
 		this.width = compWidth
 		this.height = compHeight
 		this.name = name
-		this.id = uuidv4()
+		this.id = id
 	}
 
 	preload() {
