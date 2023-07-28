@@ -106,7 +106,7 @@
 			<Anchor key="buffer" inputsStore={inputs} input />
 		</div>
 		<div class="output-anchor">
-			<Anchor id={`${id}-output`} outputStore={output} output />
+			<Anchor outputStore={output} output />
 		</div>
 	</div>
 </Node>

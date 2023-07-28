@@ -1,21 +1,13 @@
 <script lang="ts">
 	import Composition from '$lib/appComponents/Composition'
 	import type { CompositionI, TransformationsI } from '$lib/appComponents/types'
-	import { getContext } from 'svelte'
 	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
 	import { v4 as uuid } from 'uuid'
+	import CustomAnchor from './CustomAnchor.svelte'
 
 	let instance: CompositionI
-	let inputAnchor: Anchor
 	let id = uuid()
-
-	let { disconnect } = getContext<{
-		disconnect: (
-			source: [string | number, string | number],
-			target: [string | number, string | number]
-		) => void
-	}>('disconnect')
-
+	let isConnecting: boolean
 	interface InputStructure {
 		element: TransformationsI[]
 	}
@@ -27,10 +19,9 @@
 	let inputs = generateInput(initialData)
 
 	const processor = (inputs: InputStructure) => {
-		console.log(inputs.element[0]?.name)
 		if (!instance && inputs.element[0]) instance = new Composition()
 		if (instance && inputs.element[0]) {
-			if (!instance.ids[inputs.element[0].id]) {
+			if (!instance.ids[inputs.element[0].id] && isConnecting) {
 				instance.add(inputs.element[0])
 			}
 			instance = instance
@@ -40,20 +31,15 @@
 
 	const output = generateOutput(inputs, processor)
 
-	// add disconnect
-	const ele = $inputs.element
-	function remove(targetId: string, sourceId: string) {
-		console.log(sourceId)
-		instance.delete(sourceId)
+	function remove(id: string) {
+		console.log(id)
+		instance.delete(id)
 		instance = instance
-		disconnect([targetId, `${targetId}-input`], [sourceId, `${sourceId}-output`])
 	}
 
 	$: {
-		console.log(instance?.transformations.map((t) => t?.name))
+		// console.log(isConnecting)
 	}
-
-	// fix disconnect, review svelte stores.
 </script>
 
 <Node {id} useDefaults let:disconnect>
@@ -69,8 +55,8 @@
 							{transformation.name}
 							<button
 								on:click={() => {
-									remove(id, transformation.id)
-									// disconnect(transformation.id)
+									disconnect(transformation.id)
+									remove(transformation.id)
 								}}>x</button
 							>
 						</li>
@@ -80,13 +66,21 @@
 		</div>
 		<div class="input-anchor">
 			<Anchor
-				id={`${id}-input`}
-				bind:this={inputAnchor}
 				key="element"
 				inputsStore={inputs}
+				let:connecting
+				let:linked
+				let:hovering
 				input
 				multiple
-			/>
+			>
+				<CustomAnchor
+					{connecting}
+					{linked}
+					{hovering}
+					on:connecting={(e) => (isConnecting = e.detail)}
+				/>
+			</Anchor>
 		</div>
 		<div class="output-anchor">
 			<Anchor outputStore={output} output />

@@ -1,22 +1,12 @@
 <script lang="ts">
-	import { setContext } from 'svelte'
 	import { Svelvet, Controls, Background } from 'svelvet'
 
 	let w: number
 	let h: number
-
-	let svelvet: Svelvet
-
-	setContext('disconnect', {
-		disconnect: (
-			source: [string | number, string | number],
-			target: [string | number, string | number]
-		) => svelvet.disconnect(source, target)
-	})
 </script>
 
 <div bind:clientWidth={w} bind:clientHeight={h}>
-	<Svelvet bind:this={svelvet} id="my-canvas" width={w} height={h} TD>
+	<Svelvet id="my-canvas" width={w} height={h} TD>
 		<slot />
 		<Controls />
 		<Background dotColor="transparent" bgColor="transparent" slot="background" />
