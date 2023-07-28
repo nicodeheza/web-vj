@@ -2,11 +2,9 @@
 	import Composition from '$lib/appComponents/Composition'
 	import type { CompositionI, TransformationsI } from '$lib/appComponents/types'
 	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
-	import { v4 as uuid } from 'uuid'
 	import CustomAnchor from './CustomAnchor.svelte'
 
 	let instance: CompositionI
-	let id = uuid()
 	let isConnecting: boolean
 	interface InputStructure {
 		element: TransformationsI[]
@@ -24,6 +22,7 @@
 			if (!instance.ids[inputs.element[0].id] && isConnecting) {
 				instance.add(inputs.element[0])
 			}
+
 			instance = instance
 		}
 		return instance
@@ -32,17 +31,12 @@
 	const output = generateOutput(inputs, processor)
 
 	function remove(id: string) {
-		console.log(id)
 		instance.delete(id)
 		instance = instance
 	}
-
-	$: {
-		// console.log(isConnecting)
-	}
 </script>
 
-<Node {id} useDefaults let:disconnect>
+<Node useDefaults let:disconnect>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Composition</h1>
