@@ -3,7 +3,7 @@ import type { FrameBuffer, FrameBufferP5, P5RenderElement } from './types'
 
 export default class BufferRenderer {
 	private p5: P5
-	private element: P5RenderElement
+	element: P5RenderElement
 
 	img?: FrameBuffer
 

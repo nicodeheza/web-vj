@@ -26,7 +26,7 @@
 
 			instance = instance
 		}
-		return instance
+		return [instance]
 	}
 
 	const output = generateOutput(inputs, processor)

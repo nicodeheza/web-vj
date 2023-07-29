@@ -1,5 +1,6 @@
 <script>
 	import P5ScreenRenderer from 'components/P5ScreenRenderer.svelte'
+	import BufferRenderer from 'components/nodeUi/BufferRenderer.svelte'
 	import Composition from 'components/nodeUi/Composition/index.svelte'
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
 	import Transformation from 'components/nodeUi/Transformation.svelte'
@@ -18,6 +19,7 @@
 		<Transformation />
 		<Transformation />
 		<Composition />
+		<BufferRenderer />
 	</NodeCanvas>
 </div>
 
