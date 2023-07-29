@@ -2,7 +2,7 @@ import type P5 from 'p5'
 import type { BufferI, FrameBuffer, FrameBufferP5 } from './types'
 
 export default class Shader implements BufferI {
-	private p5: P5
+	private p5?: P5
 	private vert?: string
 	private frag?: string
 	private shader?: P5.Shader
@@ -16,7 +16,7 @@ export default class Shader implements BufferI {
 
 	img?: FrameBuffer
 
-	constructor(p5: P5) {
+	install(p5: P5) {
 		this.p5 = p5
 	}
 
@@ -42,12 +42,14 @@ export default class Shader implements BufferI {
 	}
 
 	preload() {
+		if (!this.p5) return
 		if (this.u_texture) this.u_texture.preload()
 		if (!this.vert || !this.frag) return
 		this.shader = this.p5.loadShader(this.vert, this.frag)
 	}
 
 	setup() {
+		if (!this.p5) return
 		this.img = (this.p5 as FrameBufferP5).createFramebuffer()
 		if (this.u_texture) {
 			if (this.u_texture.setup) this.u_texture.setup()
@@ -61,6 +63,8 @@ export default class Shader implements BufferI {
 	}
 
 	draw() {
+		if (!this.p5) return
+
 		if (this.u_texture?.draw) this.u_texture.draw()
 		if (!this.shader || !this.img) return
 		this.img.begin()

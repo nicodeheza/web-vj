@@ -3,8 +3,10 @@
 	import BufferRenderer from 'components/nodeUi/BufferRenderer.svelte'
 	import Composition from 'components/nodeUi/Composition/index.svelte'
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
+	import Output from 'components/nodeUi/Output.svelte'
 	import Transformation from 'components/nodeUi/Transformation.svelte'
 	import ImageBuffer from 'components/nodeUi/buffers/ImageBuffer.svelte'
+	import { bufferOutput } from 'store/p5'
 </script>
 
 <div class="videoOutput">
@@ -13,13 +15,14 @@
 <div class="nodeUI">
 	<NodeCanvas>
 		<ImageBuffer />
-		<ImageBuffer />
-		<ImageBuffer />
+		<!-- <ImageBuffer />
+		<ImageBuffer /> -->
 		<Transformation />
-		<Transformation />
-		<Transformation />
+		<!-- <Transformation />
+		<Transformation /> -->
 		<Composition />
 		<BufferRenderer />
+		<Output />
 	</NodeCanvas>
 </div>
 

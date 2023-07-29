@@ -2,7 +2,6 @@
 	import type { P5RenderElement } from '$lib/appComponents/types'
 	import BufferRenderer from '$lib/appComponents/BufferRenderer'
 	import { Anchor, generateInput, generateOutput, Node } from 'svelvet'
-	import { globalP5 } from 'store/p5'
 
 	let instance: BufferRenderer
 
@@ -14,17 +13,17 @@
 		element: []
 	}
 
+	const inputs = generateInput(initialData)
+
 	const processor = (inputs: Inputs) => {
 		if (!instance && inputs.element[0]) {
-			instance = new BufferRenderer(inputs.element[0], $globalP5)
+			instance = new BufferRenderer(inputs.element[0])
 		} else if (inputs.element[0]) {
 			instance.element = inputs.element[0]
 		}
 
 		return [instance]
 	}
-
-	const inputs = generateInput(initialData)
 
 	const output = generateOutput(inputs, processor)
 </script>
@@ -35,7 +34,7 @@
 			<h1>Buffer Renderer</h1>
 		</div>
 		<div class="input-anchor">
-			<Anchor key="buffer" inputsStore={inputs} input />
+			<Anchor key="element" inputsStore={inputs} input />
 		</div>
 		<div class="output-anchor">
 			<Anchor outputStore={output} output />

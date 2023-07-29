@@ -2,7 +2,7 @@ import type P5 from 'p5'
 import type { BufferI, TransformationsI } from './types'
 
 export default class Transformations implements TransformationsI {
-	private p5: P5
+	private p5?: P5
 	id: string
 	name: string
 	buffer: BufferI
@@ -18,31 +18,31 @@ export default class Transformations implements TransformationsI {
 	lPivotY = 0
 	showPivot = false
 
-	constructor(
-		buffer: BufferI,
-		compWidth: number,
-		compHeight: number,
-		name: string,
-		id: string,
-		p5: P5
-	) {
+	constructor(buffer: BufferI, compWidth: number, compHeight: number, name: string, id: string) {
 		this.buffer = buffer
-		this.p5 = p5
 		this.width = compWidth
 		this.height = compHeight
 		this.name = name
 		this.id = id
 	}
 
+	install(p5: P5) {
+		this.buffer.install(p5)
+		this.p5 = p5
+	}
+
 	preload() {
+		if (!this.p5) return
 		this.buffer.preload()
 	}
 
 	setup() {
+		if (!this.p5) return
 		if (this.buffer.setup) this.buffer.setup()
 	}
 
 	draw() {
+		if (!this.p5) return
 		if (this.buffer.draw) this.buffer.draw()
 		if (!this.buffer.img) return
 

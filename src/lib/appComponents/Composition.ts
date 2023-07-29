@@ -1,4 +1,5 @@
 import type { TransformationsI, CompositionI } from './types'
+import type P5 from 'p5'
 
 export default class Composition implements CompositionI {
 	transformations: TransformationsI[] = []
@@ -18,7 +19,6 @@ export default class Composition implements CompositionI {
 	}
 
 	moveBack(id: string) {
-		console.log('back')
 		const index = this.transformations.findIndex((ele) => ele.id === id)
 		if (index < 0) throw new Error('id not exist')
 		if (index > 0) {
@@ -29,7 +29,6 @@ export default class Composition implements CompositionI {
 	}
 
 	moveFront(id: string) {
-		console.log('fromt')
 		const index = this.transformations.findIndex((ele) => ele.id === id)
 		if (index < 0) throw new Error('id not exist')
 		if (index < this.transformations.length - 1) {
@@ -37,6 +36,12 @@ export default class Composition implements CompositionI {
 			this.transformations[index] = this.transformations[index + 1]
 			this.transformations[index + 1] = ele
 		}
+	}
+
+	install(p5: P5) {
+		this.transformations.forEach((transformation) => {
+			transformation.install(p5)
+		})
 	}
 
 	preload() {

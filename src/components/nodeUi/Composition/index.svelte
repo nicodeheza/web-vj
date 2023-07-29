@@ -26,6 +26,7 @@
 
 			instance = instance
 		}
+
 		return [instance]
 	}
 

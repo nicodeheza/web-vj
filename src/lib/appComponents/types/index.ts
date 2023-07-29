@@ -9,11 +9,11 @@ export interface P5compatible {
 export interface P5RenderElement {
 	preload?: () => void
 	setup?: () => void
+	install?: (p5: p5) => void
 	draw: () => void
 }
 
 export interface AssetComponentI {
-	p5: p5
 	img: p5.Image | undefined
 	width: number
 	height: number
@@ -26,6 +26,7 @@ export interface AssetComponentI {
 	preload: () => void
 	setup: () => void
 	draw: () => void
+	install: (p5: p5) => void
 }
 
 export interface BufferI {
@@ -34,6 +35,7 @@ export interface BufferI {
 	preload: () => void
 	setup?: () => void
 	draw?: () => void
+	install: (p5: p5) => void
 }
 
 export interface TransformationsI {
@@ -50,9 +52,11 @@ export interface TransformationsI {
 	preload: () => void
 	setup: () => void
 	draw: () => void
+	install: (p5: p5) => void
 }
 
 export interface CompositionI {
+	install: (p5: p5) => void
 	preload: () => void
 	setup: () => void
 	draw: () => void

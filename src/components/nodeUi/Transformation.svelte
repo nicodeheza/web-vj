@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Transformations from '$lib/appComponents/Transformation'
 	import type { BufferI } from '$lib/appComponents/types'
-	import { globalP5, resolution } from 'store/p5'
+	import { resolution } from 'store/p5'
 	import { Anchor, Node, Slider, generateInput, generateOutput } from 'svelvet'
 	import { v4 as uuidv4 } from 'uuid'
 
@@ -49,8 +49,7 @@
 				$resolution.w,
 				$resolution.h,
 				inputs.name,
-				id,
-				$globalP5
+				id
 			)
 		}
 

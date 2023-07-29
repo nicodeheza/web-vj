@@ -9,13 +9,12 @@ export default class ImageComponent implements AssetComponentI {
 	rotation: number
 	scale: number
 	uri: string
-	p5: P5
+	private p5?: P5
 	img: P5.Image | undefined
 	output: P5.Graphics | undefined
 	pivotX: number
 	pivotY: number
-	constructor(uri: string, p5: P5) {
-		this.p5 = p5
+	constructor(uri: string) {
 		this.uri = uri
 		this.width = 600
 		this.height = 600
@@ -27,11 +26,17 @@ export default class ImageComponent implements AssetComponentI {
 		this.pivotY = 0
 	}
 
+	install(p5: P5) {
+		this.p5 = p5
+	}
+
 	preload() {
+		if (!this.p5) return
 		this.img = this.p5.loadImage(this.uri)
 	}
 
 	setup() {
+		if (!this.p5) return
 		// can't import frameBuffer, if are performance issues check it
 		this.output = this.p5.createGraphics(this.width, this.height, this.p5.WEBGL)
 		this.output.pixelDensity(1)
@@ -39,7 +44,7 @@ export default class ImageComponent implements AssetComponentI {
 	}
 
 	draw() {
-		if (!this.img || !this.output) return
+		if (!this.img || !this.output || !this.p5) return
 		const x = (this.img.width / 2) * -1 + this.x - this.pivotX //* this.scale
 		const y = (this.img.height / 2) * -1 + this.y - this.pivotY //* this.scale
 		this.output.background(0, 0, 0, 0)

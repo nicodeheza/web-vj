@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
-	import { globalP5 } from 'store/p5'
 	import BufferBase from './BufferBase.svelte'
 
 	let instance: ImageBuffer
@@ -21,7 +20,7 @@
 		if (instance) {
 			instance.uri = input.uri
 		} else {
-			instance = new ImageBuffer(input.uri, $globalP5)
+			instance = new ImageBuffer(input.uri)
 		}
 		return instance
 	}
