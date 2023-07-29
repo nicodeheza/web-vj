@@ -18,6 +18,7 @@ export default class Composition implements CompositionI {
 	}
 
 	moveBack(id: string) {
+		console.log('back')
 		const index = this.transformations.findIndex((ele) => ele.id === id)
 		if (index < 0) throw new Error('id not exist')
 		if (index > 0) {
@@ -28,6 +29,7 @@ export default class Composition implements CompositionI {
 	}
 
 	moveFront(id: string) {
+		console.log('fromt')
 		const index = this.transformations.findIndex((ele) => ele.id === id)
 		if (index < 0) throw new Error('id not exist')
 		if (index < this.transformations.length - 1) {

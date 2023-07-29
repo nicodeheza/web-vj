@@ -2,7 +2,8 @@
 	import Composition from '$lib/appComponents/Composition'
 	import type { CompositionI, TransformationsI } from '$lib/appComponents/types'
 	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
-	import CustomAnchor from './CustomAnchor.svelte'
+	import CustomAnchor from '../CustomAnchor.svelte'
+	import Items from './Items.svelte'
 
 	let instance: CompositionI
 	let isConnecting: boolean
@@ -34,6 +35,15 @@
 		instance.delete(id)
 		instance = instance
 	}
+
+	function moveUp(id: string) {
+		instance.moveBack(id)
+		instance = instance
+	}
+	function moveDown(id: string) {
+		instance.moveFront(id)
+		instance = instance
+	}
 </script>
 
 <Node useDefaults let:disconnect>
@@ -45,15 +55,16 @@
 			{#if instance}
 				<ul>
 					{#each instance.transformations as transformation}
-						<li>
-							{transformation.name}
-							<button
-								on:click={() => {
-									disconnect(transformation.id)
-									remove(transformation.id)
-								}}>x</button
-							>
-						</li>
+						<Items
+							name={transformation.name}
+							id={transformation.id}
+							disconnect={(id) => {
+								disconnect(id)
+								remove(id)
+							}}
+							{moveUp}
+							{moveDown}
+						/>
 					{/each}
 				</ul>
 			{/if}
@@ -113,29 +124,5 @@
 		margin: 0;
 		padding: 0px;
 		width: 200px;
-	}
-
-	.elements li {
-		border: solid white 1px;
-		list-style: none;
-		margin: 5px 0;
-		color: white;
-		text-align: left;
-		padding: 5px 10px;
-		border-radius: 5px;
-
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.elements li:hover {
-		background-color: rgb(128, 128, 128);
-	}
-	.elements button {
-		border: none;
-		background-color: transparent;
-		color: white;
-		cursor: pointer;
 	}
 </style>

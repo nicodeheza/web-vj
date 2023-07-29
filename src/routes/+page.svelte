@@ -1,6 +1,6 @@
 <script>
 	import P5ScreenRenderer from 'components/P5ScreenRenderer.svelte'
-	import Composition from 'components/nodeUi/Composition.svelte'
+	import Composition from 'components/nodeUi/Composition/index.svelte'
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
 	import Transformation from 'components/nodeUi/Transformation.svelte'
 	import ImageBuffer from 'components/nodeUi/buffers/ImageBuffer.svelte'
