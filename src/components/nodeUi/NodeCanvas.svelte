@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { Svelvet, Controls, Background } from 'svelvet'
+	import { Svelvet, Background } from 'svelvet'
 
 	let w: number
 	let h: number
 </script>
 
 <div bind:clientWidth={w} bind:clientHeight={h}>
-	<Svelvet id="my-canvas" width={w} height={h} TD>
+	<Svelvet id="my-canvas" width={w} height={h} minimap controls theme="dark">
 		<slot />
-		<Controls />
 		<Background dotColor="transparent" bgColor="transparent" slot="background" />
 	</Svelvet>
 </div>
@@ -17,6 +16,9 @@
 	div {
 		width: 100%;
 		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
 	}
 	:global(.svelvet-node) {
 		background-color: rgba(131, 131, 131, 0.3) !important;
