@@ -9,10 +9,6 @@
 		resolution.set({ w, h })
 	}
 
-	// $:if($bufferOutput){
-
-	// }
-
 	const sketch = (p5: P5) => {
 		if ($bufferOutput) {
 			$bufferOutput.install(p5)
@@ -36,7 +32,7 @@
 			if ($reload && $bufferOutput) {
 				$bufferOutput.install(p5)
 				p5.preload()
-				p5.setup()
+				$bufferOutput.setup()
 				$reload = false
 			}
 			if (!$bufferOutput.img) return

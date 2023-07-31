@@ -61,6 +61,11 @@
 	$: if ($inputs.name.set) {
 		$inputs.name.set(name)
 	}
+
+	function showPivote(val: boolean) {
+		if (!instance) return
+		instance.showPivot = val
+	}
 </script>
 
 <Node width={250} height={270} {id} useDefaults>
@@ -86,20 +91,34 @@
 			/>
 			<Slider parameterStore={$inputs.rotation} min={-360} max={360} label="Rotation" fixed={0} />
 			<Slider parameterStore={$inputs.scale} min={0} max={10} step={0.01} label="Scale" />
-			<Slider
-				parameterStore={$inputs.pivoteX}
-				min={0}
-				max={$resolution.w}
-				label="Pivote x"
-				fixed={0}
-			/>
-			<Slider
-				parameterStore={$inputs.pivoteY}
-				min={0}
-				max={$resolution.h}
-				label="Pivote y"
-				fixed={0}
-			/>
+			<div
+				on:mouseenter={() => showPivote(true)}
+				on:mouseleave={() => showPivote(false)}
+				role="button"
+				tabindex={1}
+			>
+				<Slider
+					parameterStore={$inputs.pivoteX}
+					min={$resolution.w * -1}
+					max={$resolution.w}
+					label="Pivote x"
+					fixed={0}
+				/>
+			</div>
+			<div
+				on:mouseenter={() => showPivote(true)}
+				on:mouseleave={() => showPivote(false)}
+				role="button"
+				tabindex={2}
+			>
+				<Slider
+					parameterStore={$inputs.pivoteY}
+					min={$resolution.h * -1}
+					max={$resolution.h}
+					label="Pivote y"
+					fixed={0}
+				/>
+			</div>
 		</div>
 		<div class="input-anchor">
 			<Anchor key="buffer" inputsStore={inputs} input />
