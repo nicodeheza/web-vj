@@ -2,6 +2,11 @@
 	import type { P5RenderElement } from '$lib/appComponents/types'
 	import BufferRenderer from '$lib/appComponents/BufferRenderer'
 	import { Anchor, generateInput, generateOutput, Node } from 'svelvet'
+	import type { Position } from '$lib/fileSystem/types'
+
+	export let id: string
+	export let connections: string[]
+	export let position: Position
 
 	let instance: BufferRenderer
 
@@ -28,7 +33,7 @@
 	const output = generateOutput(inputs, processor)
 </script>
 
-<Node width={250} height={100} useDefaults>
+<Node width={250} height={100} {id} {connections} {position} useDefaults>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Buffer Renderer</h1>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Anchor, Node } from 'svelvet'
 	import type { Invalidator, Subscriber, Unsubscriber } from 'svelte/store'
+	import type { Position } from '$lib/fileSystem/types'
 
 	interface OutputStore {
 		subscribe: (
@@ -16,9 +17,12 @@
 	export let name: string
 	export let textVal: string
 	export let outputStore: OutputStore
+	export let position: Position
+	export let connections: string[]
+	export let id: string
 </script>
 
-<Node width={200} height={100} useDefaults>
+<Node width={200} height={100} {id} {connections} {position} useDefaults>
 	<div class="node">
 		<div class="node-title image-buffer-title">
 			<h1>{name}</h1>

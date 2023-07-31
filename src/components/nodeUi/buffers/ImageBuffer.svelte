@@ -1,17 +1,23 @@
 <script lang="ts">
-	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
+	import { generateInput, generateOutput } from 'svelvet'
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
 	import BufferBase from './BufferBase.svelte'
+	import type { ImageBufferProps, Position } from '$lib/fileSystem/types'
+
+	export let id: string
+	export let connections: string[]
+	export let position: Position
+	export let props: ImageBufferProps
 
 	let instance: ImageBuffer
-	let textVal = 'img/test.jpg'
+	let textVal = props.url
 
 	interface Input {
 		uri: string
 	}
 
 	const initialData = {
-		uri: 'img/test.jpg'
+		uri: textVal
 	}
 
 	const input = generateInput(initialData)
@@ -41,4 +47,4 @@
 	const output = generateOutput(input, processor)
 </script>
 
-<BufferBase name="Image Buffer" bind:textVal outputStore={output} />
+<BufferBase {id} {position} {connections} name="Image Buffer" bind:textVal outputStore={output} />

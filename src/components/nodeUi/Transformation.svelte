@@ -1,13 +1,17 @@
 <script lang="ts">
 	import Transformations from '$lib/appComponents/Transformation'
 	import type { BufferI } from '$lib/appComponents/types'
+	import type { Position, TransformationProps } from '$lib/fileSystem/types'
 	import { resolution } from 'store/p5'
 	import { Anchor, Node, Slider, generateInput, generateOutput } from 'svelvet'
-	import { v4 as uuidv4 } from 'uuid'
+
+	export let id: string
+	export let connections: string[]
+	export let position: Position
+	export let props: TransformationProps
 
 	let instance: Transformations
 	let name: string
-	let id = uuidv4()
 
 	interface Inputs {
 		x: number
@@ -21,14 +25,8 @@
 	}
 
 	const initialData = {
-		x: 0,
-		y: 0,
-		rotation: 0,
-		scale: 1,
-		pivoteX: 0,
-		pivoteY: 0,
-		buffer: false,
-		name: ''
+		...props,
+		buffer: false
 	}
 
 	const inputs = generateInput(initialData)
@@ -58,7 +56,7 @@
 
 	const output = generateOutput(inputs, processor)
 
-	$: if ($inputs.name.set) {
+	$: if ($inputs?.name?.set) {
 		$inputs.name.set(name)
 	}
 
@@ -68,7 +66,7 @@
 	}
 </script>
 
-<Node width={250} height={270} {id} useDefaults>
+<Node width={250} height={270} {id} {connections} {position} useDefaults>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Screen Element</h1>

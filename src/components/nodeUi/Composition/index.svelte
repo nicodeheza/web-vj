@@ -4,9 +4,15 @@
 	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
 	import CustomAnchor from '../CustomAnchor.svelte'
 	import Items from './Items.svelte'
+	import type { Position } from '$lib/fileSystem/types'
+
+	export let id: string
+	export let connections: string[]
+	export let position: Position
 
 	let instance: CompositionI
 	let isConnecting: boolean
+
 	interface InputStructure {
 		element: TransformationsI[]
 	}
@@ -47,7 +53,7 @@
 	}
 </script>
 
-<Node useDefaults let:disconnect>
+<Node useDefaults {id} {connections} {position} let:disconnect>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Composition</h1>
