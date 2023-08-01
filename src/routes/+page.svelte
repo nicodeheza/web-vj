@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import {
 		baseBufferRenderer,
 		baseComposition,
@@ -16,7 +16,12 @@
 	import { onMount } from 'svelte'
 
 	onMount(() => {
-		$nodeRecords = [baseImageBuffer, baseTransformation, baseComposition, baseBufferRenderer]
+		$nodeRecords = [
+			baseImageBuffer,
+			baseTransformation,
+			baseComposition,
+			baseBufferRenderer
+		].reduce((acc, ele) => ({ ...acc, [ele.id]: ele }), {})
 	})
 </script>
 
@@ -25,7 +30,7 @@
 </div>
 <div class="nodeUI">
 	<NodeCanvas>
-		{#each $nodeRecords as record (record.id)}
+		{#each Object.values($nodeRecords) as record (record.id)}
 			{#if record.type === 'imageBuffer'}
 				<ImageBuffer
 					id={record.id}
