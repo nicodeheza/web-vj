@@ -1,9 +1,9 @@
 <script lang="ts">
 	import {
-		baseBufferRenderer,
-		baseComposition,
-		baseImageBuffer,
-		baseTransformation
+		getBaseBufferRenderer,
+		getBaseComposition,
+		getBaseImageBuffer,
+		getBaseTransformation
 	} from '$lib/fileSystem/baseRecords'
 	import P5ScreenRenderer from 'components/P5ScreenRenderer.svelte'
 	import BufferRenderer from 'components/nodeUi/BufferRenderer.svelte'
@@ -12,17 +12,18 @@
 	import Output from 'components/nodeUi/Output.svelte'
 	import Transformation from 'components/nodeUi/Transformation.svelte'
 	import ImageBuffer from 'components/nodeUi/buffers/ImageBuffer.svelte'
+	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords } from 'store/nodes'
 	import { onMount } from 'svelte'
 
-	onMount(() => {
-		$nodeRecords = [
-			baseImageBuffer,
-			baseTransformation,
-			baseComposition,
-			baseBufferRenderer
-		].reduce((acc, ele) => ({ ...acc, [ele.id]: ele }), {})
-	})
+	// onMount(() => {
+	// 	$nodeRecords = [
+	// 		getBaseImageBuffer(),
+	// 		getBaseTransformation(),
+	// 		getBaseComposition(),
+	// 		getBaseBufferRenderer()
+	// 	].reduce((acc, ele) => ({ ...acc, [ele.id]: ele }), {})
+	// })
 </script>
 
 <div class="videoOutput">
@@ -57,6 +58,7 @@
 		{/each}
 		<Output />
 	</NodeCanvas>
+	<NodeMenu />
 </div>
 
 <style>

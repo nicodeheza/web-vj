@@ -12,16 +12,16 @@ const baseNode = {
 	position: { x: 0, y: 0 }
 }
 
-export const baseImageBuffer: ImageBufferRecord = {
+export const getBaseImageBuffer = (): ImageBufferRecord => ({
 	...baseNode,
 	id: uuid(),
 	type: 'imageBuffer',
 	props: {
 		url: 'img/test.jpg'
 	}
-}
+})
 
-export const baseTransformation: TransformationRecord = {
+export const getBaseTransformation = (): TransformationRecord => ({
 	...baseNode,
 	id: uuid(),
 	type: 'transformation',
@@ -34,16 +34,16 @@ export const baseTransformation: TransformationRecord = {
 		pivoteX: 0,
 		pivoteY: 0
 	}
-}
+})
 
-export const baseBufferRenderer: BufferRendererRecord = {
+export const getBaseBufferRenderer = (): BufferRendererRecord => ({
 	...baseNode,
 	id: uuid(),
 	type: 'bufferRenderer'
-}
+})
 
-export const baseComposition: CompositionRecord = {
+export const getBaseComposition = (): CompositionRecord => ({
 	...baseNode,
 	id: uuid(),
 	type: 'composition'
-}
+})

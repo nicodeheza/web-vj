@@ -6,7 +6,7 @@ import type {
 } from '$lib/fileSystem/types'
 import { writable } from 'svelte/store'
 
-type NodeRecord =
+export type NodeRecord =
 	| ImageBufferRecord
 	| TransformationRecord
 	| BufferRendererRecord
