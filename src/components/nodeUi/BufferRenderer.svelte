@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { P5RenderElement } from '$lib/appComponents/types'
 	import BufferRenderer from '$lib/appComponents/BufferRenderer'
-	import { Anchor, generateInput, generateOutput, Node } from 'svelvet'
+	import { Anchor, generateInput, generateOutput } from 'svelvet'
 	import type { Position } from '$lib/fileSystem/types'
+	import BaseNode from './BaseNode.svelte'
 
 	export let id: string
 	export let connections: string[]
@@ -33,7 +34,7 @@
 	const output = generateOutput(inputs, processor)
 </script>
 
-<Node width={250} height={100} {id} {connections} {position} useDefaults>
+<BaseNode width={250} height={100} {id} {connections} {position}>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Buffer Renderer</h1>
@@ -45,7 +46,7 @@
 			<Anchor outputStore={output} output />
 		</div>
 	</div>
-</Node>
+</BaseNode>
 
 <style>
 	.node {

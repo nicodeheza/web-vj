@@ -37,3 +37,7 @@ export interface BufferRendererRecord extends NodeRecord {
 export interface CompositionRecord extends NodeRecord {
 	type: 'composition'
 }
+
+export interface OutputRecord extends NodeRecord {
+	type: 'output'
+}

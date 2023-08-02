@@ -5,6 +5,7 @@
 	import CustomAnchor from '../CustomAnchor.svelte'
 	import Items from './Items.svelte'
 	import type { Position } from '$lib/fileSystem/types'
+	import BaseNode from '../BaseNode.svelte'
 
 	export let id: string
 	export let connections: string[]
@@ -53,7 +54,7 @@
 	}
 </script>
 
-<Node useDefaults {id} {connections} {position} let:disconnect>
+<BaseNode {id} {connections} {position} let:disconnect>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Composition</h1>
@@ -98,7 +99,7 @@
 			<Anchor outputStore={output} output />
 		</div>
 	</div>
-</Node>
+</BaseNode>
 
 <style>
 	.name {

@@ -1,10 +1,4 @@
 <script lang="ts">
-	import {
-		getBaseBufferRenderer,
-		getBaseComposition,
-		getBaseImageBuffer,
-		getBaseTransformation
-	} from '$lib/fileSystem/baseRecords'
 	import P5ScreenRenderer from 'components/P5ScreenRenderer.svelte'
 	import BufferRenderer from 'components/nodeUi/BufferRenderer.svelte'
 	import Composition from 'components/nodeUi/Composition/index.svelte'
@@ -14,16 +8,6 @@
 	import ImageBuffer from 'components/nodeUi/buffers/ImageBuffer.svelte'
 	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords } from 'store/nodes'
-	import { onMount } from 'svelte'
-
-	// onMount(() => {
-	// 	$nodeRecords = [
-	// 		getBaseImageBuffer(),
-	// 		getBaseTransformation(),
-	// 		getBaseComposition(),
-	// 		getBaseBufferRenderer()
-	// 	].reduce((acc, ele) => ({ ...acc, [ele.id]: ele }), {})
-	// })
 </script>
 
 <div class="videoOutput">
@@ -56,7 +40,7 @@
 				<Composition id={record.id} connections={record.connections} position={record.position} />
 			{/if}
 		{/each}
-		<Output />
+		<Output position={$nodeRecords.output.position} connections={$nodeRecords.output.connections} />
 	</NodeCanvas>
 	<NodeMenu />
 </div>

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { Anchor, Node } from 'svelvet'
+	import { Anchor } from 'svelvet'
 	import type { Invalidator, Subscriber, Unsubscriber } from 'svelte/store'
 	import type { Position } from '$lib/fileSystem/types'
-	import { nodeRecords } from 'store/nodes'
-	import { onMount } from 'svelte'
+	import BaseNode from '../BaseNode.svelte'
 
 	interface OutputStore {
 		subscribe: (
@@ -22,14 +21,9 @@
 	export let position: Position
 	export let connections: string[]
 	export let id: string
-
-	// add to other nodes or create base node better
-	$: if ($nodeRecords[id].position.x !== position.x || $nodeRecords[id].position.y !== position.y) {
-		$nodeRecords[id].position = position
-	}
 </script>
 
-<Node width={200} height={100} {id} {connections} bind:position useDefaults>
+<BaseNode width={200} height={100} {id} {connections} bind:position>
 	<div class="node">
 		<div class="node-title image-buffer-title">
 			<h1>{name}</h1>
@@ -41,7 +35,7 @@
 			<Anchor {outputStore} output />
 		</div>
 	</div>
-</Node>
+</BaseNode>
 
 <style>
 	.image-buffer-title {

@@ -3,7 +3,8 @@
 	import type { BufferI } from '$lib/appComponents/types'
 	import type { Position, TransformationProps } from '$lib/fileSystem/types'
 	import { resolution } from 'store/p5'
-	import { Anchor, Node, Slider, generateInput, generateOutput } from 'svelvet'
+	import { Anchor, Slider, generateInput, generateOutput } from 'svelvet'
+	import BaseNode from './BaseNode.svelte'
 
 	export let id: string
 	export let connections: string[]
@@ -66,7 +67,7 @@
 	}
 </script>
 
-<Node width={250} height={270} {id} {connections} {position} useDefaults>
+<BaseNode width={250} height={270} {id} {connections} {position}>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Screen Element</h1>
@@ -125,7 +126,7 @@
 			<Anchor outputStore={output} output />
 		</div>
 	</div>
-</Node>
+</BaseNode>
 
 <style>
 	.node {
