@@ -39,7 +39,7 @@
 
 <style>
 	.image-buffer-title {
-		background-color: rgb(139, 0, 70);
+		background-color: var(--image-buffer-color);
 	}
 
 	.buffer-input-container {

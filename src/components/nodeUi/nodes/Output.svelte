@@ -2,7 +2,7 @@
 	import type BufferRenderer from '$lib/appComponents/BufferRenderer'
 	import { Anchor, generateInput, generateOutput } from 'svelvet'
 	import { bufferOutput, reload } from 'store/p5'
-	import CustomAnchor from './CustomAnchor.svelte'
+	import CustomAnchor from './anchors/CustomAnchor.svelte'
 	import BaseNode from './BaseNode.svelte'
 	import type { Position } from '$lib/fileSystem/types'
 
@@ -57,7 +57,7 @@
 		margin-bottom: 20px;
 	}
 	.name {
-		background-color: rgb(236, 75, 75);
+		background-color: var(--output-color);
 	}
 
 	.input-anchor {

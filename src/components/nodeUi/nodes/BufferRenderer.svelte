@@ -54,7 +54,7 @@
 		margin-bottom: 20px;
 	}
 	.name {
-		background-color: rgb(202, 116, 59);
+		background-color: var(--buffer-renderer-color);
 	}
 
 	.input-anchor {

@@ -134,7 +134,7 @@
 		margin-bottom: 20px;
 	}
 	.name {
-		background-color: rgb(1, 128, 128);
+		background-color: var(--transformation-color);
 	}
 	.sliders {
 		margin-top: 50px;

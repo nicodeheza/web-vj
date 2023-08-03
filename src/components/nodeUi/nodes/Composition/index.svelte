@@ -2,7 +2,7 @@
 	import Composition from '$lib/appComponents/Composition'
 	import type { CompositionI, TransformationsI } from '$lib/appComponents/types'
 	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
-	import CustomAnchor from '../CustomAnchor.svelte'
+	import CustomAnchor from '../anchors/CustomAnchor.svelte'
 	import Items from './Items.svelte'
 	import type { Position } from '$lib/fileSystem/types'
 	import BaseNode from '../BaseNode.svelte'
@@ -103,7 +103,7 @@
 
 <style>
 	.name {
-		background-color: rgb(0, 112, 209);
+		background-color: var(--composition-color);
 	}
 
 	.input-anchor {

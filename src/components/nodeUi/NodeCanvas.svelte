@@ -5,8 +5,9 @@
 	let h: number
 </script>
 
-<div bind:clientWidth={w} bind:clientHeight={h}>
-	<Svelvet id="my-canvas" width={w} height={h} minimap controls theme="dark">
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div bind:clientWidth={w} bind:clientHeight={h} on:dragover={(e) => e.preventDefault()}>
+	<Svelvet id="nodeCanvas" width={w} height={h} minimap controls theme="dark">
 		<slot />
 		<Background dotColor="transparent" bgColor="transparent" slot="background" />
 	</Svelvet>

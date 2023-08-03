@@ -1,11 +1,11 @@
 <script lang="ts">
 	import P5ScreenRenderer from 'components/P5ScreenRenderer.svelte'
-	import BufferRenderer from 'components/nodeUi/BufferRenderer.svelte'
-	import Composition from 'components/nodeUi/Composition/index.svelte'
+	import BufferRenderer from 'components/nodeUi/nodes/BufferRenderer.svelte'
+	import Composition from 'components/nodeUi/nodes/Composition/index.svelte'
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
-	import Output from 'components/nodeUi/Output.svelte'
-	import Transformation from 'components/nodeUi/Transformation.svelte'
-	import ImageBuffer from 'components/nodeUi/buffers/ImageBuffer.svelte'
+	import Output from 'components/nodeUi/nodes/Output.svelte'
+	import Transformation from 'components/nodeUi/nodes/Transformation.svelte'
+	import ImageBuffer from 'components/nodeUi/nodes/buffers/ImageBuffer.svelte'
 	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords } from 'store/nodes'
 </script>
@@ -46,6 +46,13 @@
 </div>
 
 <style>
+	:global(:root) {
+		--buffer-renderer-color: rgb(202, 116, 59);
+		--output-color: rgb(236, 75, 75);
+		--transformation-color: rgb(1, 128, 128);
+		--image-buffer-color: rgb(139, 0, 70);
+		--composition-color: rgb(0, 112, 209);
+	}
 	.videoOutput,
 	.nodeUI {
 		position: absolute;

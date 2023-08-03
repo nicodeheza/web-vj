@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Node, Anchor } from 'svelvet'
 	import type { Connections } from 'svelvet'
-	import CustomAnchor from './CustomAnchor.svelte' // A Svelte component or HTML element of your creation
+	import CustomAnchor from './nodes/anchors/CustomAnchor.svelte' // A Svelte component or HTML element of your creation
 	const connections: Connections = [
 		['node1', '4'],
 		['node2', '3']
