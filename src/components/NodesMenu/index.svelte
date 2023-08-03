@@ -21,36 +21,19 @@
 		composition: getBaseComposition
 	}
 
-	function addElement(e: DragEvent, type: string) {
-		e.preventDefault()
-		const { clientX, clientY } = e
-		const element: NodeRecord = {
-			...baseElementsGetters[type](),
-			position: {
-				x: clientX,
-				y: clientY
-			}
-		}
-
+	function addElement(type: string) {
+		const element: NodeRecord = baseElementsGetters[type]()
 		$nodeRecords[element.id] = element
 	}
 
 	function onDrag(e: DragEvent, type: string) {
-		e.preventDefault()
+		e.dataTransfer?.setData('type', type)
 	}
 </script>
 
 <section>
 	{#each Object.keys(names) as nodeType (nodeType)}
-		<button
-			class={`${nodeType} button`}
-			draggable="true"
-			on:dragend={(e) => {
-				addElement(e, nodeType)
-			}}
-			on:drag={(e) => onDrag(e, nodeType)}
-			on:drop={(e) => e.preventDefault()}
-		>
+		<button class={`${nodeType} button`} on:click={() => addElement(nodeType)}>
 			<h3>{names[nodeType]}</h3>
 		</button>
 	{/each}
@@ -87,7 +70,7 @@
 	}
 	button {
 		border: none;
-		cursor: grab;
+		cursor: pointer;
 	}
 
 	:global(.grabbing *) {

@@ -8,8 +8,9 @@
 	]
 </script>
 
-<Node let:selected bgColor="gray" borderRadius={15}>
+<Node let:selected bgColor="gray" borderRadius={15} let:grabHandle>
 	<div class:selected class="node">
+		<div class="test" use:grabHandle />
 		<div class="input-anchors">
 			<Anchor bgColor="red" id="data-connection" input />
 			<Anchor multiple input nodeConnect />
@@ -24,6 +25,14 @@
 </Node>
 
 <style>
+	.test {
+		background-color: red;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 30px;
+	}
 	.node {
 		width: 200px;
 		height: 100px;

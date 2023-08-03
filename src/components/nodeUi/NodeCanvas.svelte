@@ -6,7 +6,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div bind:clientWidth={w} bind:clientHeight={h} on:dragover={(e) => e.preventDefault()}>
+<div bind:clientWidth={w} bind:clientHeight={h}>
 	<Svelvet id="nodeCanvas" width={w} height={h} minimap controls theme="dark">
 		<slot />
 		<Background dotColor="transparent" bgColor="transparent" slot="background" />

@@ -14,6 +14,6 @@
 	}
 </script>
 
-<Node {width} {height} {id} {connections} bind:position let:disconnect useDefaults>
+<Node {width} {height} {id} {connections} bind:position let:disconnect drop={'center'} useDefaults>
 	<slot {disconnect} />
 </Node>
