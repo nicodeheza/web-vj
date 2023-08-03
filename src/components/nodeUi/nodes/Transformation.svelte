@@ -12,7 +12,7 @@
 	export let props: TransformationProps
 
 	let instance: Transformations
-	let name: string
+	let name: string = props.name
 
 	interface Inputs {
 		x: number
