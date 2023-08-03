@@ -34,10 +34,11 @@
 	const output = generateOutput(inputs, processor)
 </script>
 
-<BaseNode width={250} height={100} {id} {connections} {position}>
+<BaseNode width={250} height={100} {id} {connections} {position} let:deleteNode>
 	<div class="node">
 		<div class="node-title name">
 			<h1>Buffer Renderer</h1>
+			<button on:click={deleteNode}>x</button>
 		</div>
 		<div class="input-anchor">
 			<Anchor key="element" inputsStore={inputs} input />

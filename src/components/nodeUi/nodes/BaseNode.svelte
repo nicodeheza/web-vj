@@ -9,11 +9,18 @@
 	export let position: Position
 	export let connections: string[]
 
-	$: if ($nodeRecords[id].position.x !== position.x || $nodeRecords[id].position.y !== position.y) {
-		$nodeRecords[id].position = position
+	function deleteNode() {
+		$nodeRecords.delete(id)
+		$nodeRecords = $nodeRecords
+	}
+
+	const element = $nodeRecords.get(id)!
+	$: if (element.position.x !== position.x || element.position.y !== position.y) {
+		element.position = position
+		$nodeRecords.set(id, element)
 	}
 </script>
 
 <Node {width} {height} {id} {connections} bind:position let:disconnect drop={'center'} useDefaults>
-	<slot {disconnect} />
+	<slot {disconnect} {deleteNode} />
 </Node>

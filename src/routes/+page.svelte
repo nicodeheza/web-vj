@@ -15,7 +15,7 @@
 </div>
 <div class="nodeUI">
 	<NodeCanvas>
-		{#each Object.values($nodeRecords) as record (record.id)}
+		{#each $nodeRecords.values() as record (record.id)}
 			{#if record.type === 'imageBuffer'}
 				<ImageBuffer
 					id={record.id}
@@ -40,7 +40,10 @@
 				<Composition id={record.id} connections={record.connections} position={record.position} />
 			{/if}
 		{/each}
-		<Output position={$nodeRecords.output.position} connections={$nodeRecords.output.connections} />
+		<Output
+			position={$nodeRecords.get('output')?.position || { x: 0, y: 0 }}
+			connections={$nodeRecords.get('output')?.connections || []}
+		/>
 	</NodeCanvas>
 	<NodeMenu />
 </div>

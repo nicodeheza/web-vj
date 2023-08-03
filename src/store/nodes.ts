@@ -20,4 +20,4 @@ const output: OutputRecord = {
 	connections: [],
 	position: { x: 0, y: 0 }
 }
-export const nodeRecords = writable<Record<string, NodeRecord>>({ output })
+export const nodeRecords = writable<Map<string, NodeRecord>>(new Map([['output', output]]))

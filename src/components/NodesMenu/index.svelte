@@ -23,7 +23,8 @@
 
 	function addElement(type: string) {
 		const element: NodeRecord = baseElementsGetters[type]()
-		$nodeRecords[element.id] = element
+		$nodeRecords.set(element.id, element)
+		$nodeRecords = $nodeRecords
 	}
 
 	function onDrag(e: DragEvent, type: string) {
