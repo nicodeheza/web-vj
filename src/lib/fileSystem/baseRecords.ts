@@ -7,13 +7,9 @@ import type {
 } from './types'
 import { v4 as uuid } from 'uuid'
 
-const baseNode = {
-	connections: [],
-	position: { x: 0, y: 0 }
-}
-
 export const getBaseImageBuffer = (): ImageBufferRecord => ({
-	...baseNode,
+	connections: [],
+	position: { x: 0, y: 0 },
 	id: uuid(),
 	type: 'imageBuffer',
 	props: {
@@ -22,7 +18,8 @@ export const getBaseImageBuffer = (): ImageBufferRecord => ({
 })
 
 export const getBaseTransformation = (): TransformationRecord => ({
-	...baseNode,
+	connections: [],
+	position: { x: 0, y: 0 },
 	id: uuid(),
 	type: 'transformation',
 	props: {
@@ -37,13 +34,15 @@ export const getBaseTransformation = (): TransformationRecord => ({
 })
 
 export const getBaseBufferRenderer = (): BufferRendererRecord => ({
-	...baseNode,
+	connections: [],
+	position: { x: 0, y: 0 },
 	id: uuid(),
 	type: 'bufferRenderer'
 })
 
 export const getBaseComposition = (): CompositionRecord => ({
-	...baseNode,
+	connections: [],
+	position: { x: 0, y: 0 },
 	id: uuid(),
 	type: 'composition'
 })

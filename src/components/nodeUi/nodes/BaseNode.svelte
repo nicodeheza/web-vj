@@ -2,7 +2,8 @@
 	import type { Position } from '$lib/fileSystem/types'
 	import { Node } from 'svelvet'
 	import { nodeRecords } from 'store/nodes'
-	import Output from './Output.svelte'
+	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
+	import { onMount } from 'svelte'
 
 	export let width: number | undefined = undefined
 	export let height: number | undefined = undefined
@@ -11,20 +12,31 @@
 	export let connections: string[]
 	export let label: string
 	export let type: string
+	let drop: undefined | 'center' | 'cursor'
+
+	onMount(() => {
+		const { x, y } = position
+
+		if (!x && !y) {
+			drop = 'center'
+		}
+	})
 
 	function deleteNode() {
 		$nodeRecords.delete(id)
 		$nodeRecords = $nodeRecords
+		updateNodeRecordStorage($nodeRecords)
 	}
 
 	const element = $nodeRecords.get(id)!
 	$: if (element.position.x !== position.x || element.position.y !== position.y) {
 		element.position = position
 		$nodeRecords.set(id, element)
+		updateNodeRecordStorage($nodeRecords)
 	}
 </script>
 
-<Node {width} {height} {id} {connections} bind:position let:disconnect drop={'center'} useDefaults>
+<Node {width} {height} {id} bind:connections bind:position let:disconnect {drop} useDefaults>
 	<div class="node">
 		<div class={`node-title name ${type}-color`}>
 			<h1>{label}</h1>

@@ -5,6 +5,7 @@
 		getBaseImageBuffer,
 		getBaseTransformation
 	} from '$lib/fileSystem/baseRecords'
+	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
 
 	const names: Record<string, string> = {
@@ -25,10 +26,7 @@
 		const element: NodeRecord = baseElementsGetters[type]()
 		$nodeRecords.set(element.id, element)
 		$nodeRecords = $nodeRecords
-	}
-
-	function onDrag(e: DragEvent, type: string) {
-		e.dataTransfer?.setData('type', type)
+		updateNodeRecordStorage($nodeRecords)
 	}
 </script>
 

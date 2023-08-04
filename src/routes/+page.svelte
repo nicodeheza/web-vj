@@ -7,7 +7,15 @@
 	import Transformation from 'components/nodeUi/nodes/Transformation.svelte'
 	import ImageBuffer from 'components/nodeUi/nodes/buffers/ImageBuffer.svelte'
 	import NodeMenu from 'components/NodesMenu/index.svelte'
-	import { nodeRecords } from 'store/nodes'
+	import { nodeRecords, type NodeRecord } from 'store/nodes'
+	import { onMount } from 'svelte'
+
+	onMount(() => {
+		const storage = localStorage.getItem('nodeRecords')
+		const storageObj: Record<string, NodeRecord> = storage && JSON.parse(storage)
+		if (!storageObj) return
+		$nodeRecords = new Map<string, NodeRecord>(Object.entries(storageObj))
+	})
 </script>
 
 <div class="videoOutput">

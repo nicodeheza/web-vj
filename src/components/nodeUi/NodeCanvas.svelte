@@ -1,13 +1,44 @@
 <script lang="ts">
+	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
+	import { nodeRecords } from 'store/nodes'
 	import { Svelvet, Background } from 'svelvet'
 
 	let w: number
 	let h: number
+
+	function onConnection(e: CustomEvent) {
+		const sourceId = e.detail.sourceNode.id.split('N-')[1]
+		const targetId = e.detail.targetNode.id.split('N-')[1]
+		const record = $nodeRecords.get(sourceId)
+		if (!record) return
+		record.connections.push(targetId)
+		$nodeRecords.set(sourceId, record)
+		updateNodeRecordStorage($nodeRecords)
+	}
+
+	function onDisconnect(e: CustomEvent) {
+		const sourceId = e.detail.sourceNode.id.split('N-')[1]
+		const targetId = e.detail.targetNode.id.split('N-')[1]
+		const record = $nodeRecords.get(sourceId)
+		if (!record) return
+		record.connections = record.connections.filter((id) => id != targetId)
+		$nodeRecords.set(sourceId, record)
+		updateNodeRecordStorage($nodeRecords)
+	}
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div bind:clientWidth={w} bind:clientHeight={h}>
-	<Svelvet id="nodeCanvas" width={w} height={h} minimap controls theme="dark">
+	<Svelvet
+		id="nodeCanvas"
+		width={w}
+		height={h}
+		minimap
+		controls
+		theme="dark"
+		on:connection={(e) => onConnection(e)}
+		on:disconnection={(e) => onDisconnect(e)}
+	>
 		<slot />
 		<Background dotColor="transparent" bgColor="transparent" slot="background" />
 	</Svelvet>
