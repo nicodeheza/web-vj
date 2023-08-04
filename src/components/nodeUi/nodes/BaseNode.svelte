@@ -2,12 +2,15 @@
 	import type { Position } from '$lib/fileSystem/types'
 	import { Node } from 'svelvet'
 	import { nodeRecords } from 'store/nodes'
+	import Output from './Output.svelte'
 
 	export let width: number | undefined = undefined
 	export let height: number | undefined = undefined
 	export let id: string
 	export let position: Position
 	export let connections: string[]
+	export let label: string
+	export let type: string
 
 	function deleteNode() {
 		$nodeRecords.delete(id)
@@ -22,5 +25,50 @@
 </script>
 
 <Node {width} {height} {id} {connections} bind:position let:disconnect drop={'center'} useDefaults>
-	<slot {disconnect} {deleteNode} />
+	<div class="node">
+		<div class={`node-title name ${type}-color`}>
+			<h1>{label}</h1>
+			{#if type != 'output'}
+				<button on:click={deleteNode}>x</button>
+			{/if}
+		</div>
+		<slot {disconnect} />
+	</div>
 </Node>
+
+<style>
+	.node {
+		padding: 0px 15px;
+		margin-bottom: 20px;
+	}
+	.node-title {
+		display: flex;
+		align-items: center;
+	}
+	.node-title button {
+		position: absolute;
+		right: 5px;
+		background-color: transparent;
+		border: none;
+		color: white;
+		font-size: 15px;
+		font-weight: bolder;
+		cursor: pointer;
+		z-index: 1;
+	}
+	.bufferRenderer-color {
+		background-color: var(--buffer-renderer-color);
+	}
+	.imageBuffer-color {
+		background-color: var(--image-buffer-color);
+	}
+	.transformation-color {
+		background-color: var(--transformation-color);
+	}
+	.composition-color {
+		background-color: var(--composition-color);
+	}
+	.output-color {
+		background-color: var(--output-color);
+	}
+</style>

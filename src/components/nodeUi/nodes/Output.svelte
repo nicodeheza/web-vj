@@ -31,35 +31,30 @@
 	const output = generateOutput(inputs, processor)
 </script>
 
-<BaseNode width={100} height={100} {position} {connections} id="output">
-	<div class="node">
-		<div class="node-title name">
-			<h1>Output</h1>
-		</div>
-		<div class="input-anchor">
-			<Anchor key="element" let:connecting let:hovering let:linked inputsStore={inputs} input>
-				<CustomAnchor
-					{connecting}
-					{hovering}
-					{linked}
-					on:connecting={(e) => {
-						isConnecting = e.detail
-					}}
-				/>
-			</Anchor>
-		</div>
+<BaseNode
+	width={100}
+	height={100}
+	{position}
+	{connections}
+	id="output"
+	type="output"
+	label="Output"
+>
+	<div class="input-anchor">
+		<Anchor key="element" let:connecting let:hovering let:linked inputsStore={inputs} input>
+			<CustomAnchor
+				{connecting}
+				{hovering}
+				{linked}
+				on:connecting={(e) => {
+					isConnecting = e.detail
+				}}
+			/>
+		</Anchor>
 	</div>
 </BaseNode>
 
 <style>
-	.node {
-		padding: 0px 15px;
-		margin-bottom: 20px;
-	}
-	.name {
-		background-color: var(--output-color);
-	}
-
 	.input-anchor {
 		position: absolute;
 		left: -6px;

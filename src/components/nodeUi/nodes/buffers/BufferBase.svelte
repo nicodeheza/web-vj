@@ -23,25 +23,16 @@
 	export let id: string
 </script>
 
-<BaseNode width={200} height={100} {id} {connections} bind:position>
-	<div class="node">
-		<div class="node-title image-buffer-title">
-			<h1>{name}</h1>
-		</div>
-		<div class="buffer-input-container">
-			<input type="text" bind:value={textVal} />
-		</div>
-		<div class="output-container">
-			<Anchor {outputStore} output />
-		</div>
+<BaseNode width={200} height={100} {id} {connections} type="imageBuffer" label={name} bind:position>
+	<div class="buffer-input-container">
+		<input type="text" bind:value={textVal} />
+	</div>
+	<div class="output-container">
+		<Anchor {outputStore} output />
 	</div>
 </BaseNode>
 
 <style>
-	.image-buffer-title {
-		background-color: var(--image-buffer-color);
-	}
-
 	.buffer-input-container {
 		width: 100%;
 		height: 100%;

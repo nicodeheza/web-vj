@@ -67,75 +67,71 @@
 	}
 </script>
 
-<BaseNode width={250} height={270} {id} {connections} {position}>
-	<div class="node">
-		<div class="node-title name">
-			<h1>Screen Element</h1>
-		</div>
-		<div class="sliders">
-			<input type="text" placeholder="Name" bind:value={name} />
+<BaseNode
+	width={250}
+	height={270}
+	{id}
+	{connections}
+	{position}
+	type="transformation"
+	label="Screen element"
+>
+	<div class="sliders">
+		<input type="text" placeholder="Name" bind:value={name} />
+		<Slider
+			parameterStore={$inputs.x}
+			min={$resolution.w * -2}
+			max={$resolution.w * 2}
+			label="x"
+			fixed={0}
+		/>
+		<Slider
+			parameterStore={$inputs.y}
+			min={$resolution.h * -2}
+			max={$resolution.h * 2}
+			label="y"
+			fixed={0}
+		/>
+		<Slider parameterStore={$inputs.rotation} min={-360} max={360} label="Rotation" fixed={0} />
+		<Slider parameterStore={$inputs.scale} min={0} max={10} step={0.01} label="Scale" />
+		<div
+			on:mouseenter={() => showPivote(true)}
+			on:mouseleave={() => showPivote(false)}
+			role="button"
+			tabindex={1}
+		>
 			<Slider
-				parameterStore={$inputs.x}
-				min={$resolution.w * -2}
-				max={$resolution.w * 2}
-				label="x"
+				parameterStore={$inputs.pivoteX}
+				min={$resolution.w * -1}
+				max={$resolution.w}
+				label="Pivote x"
 				fixed={0}
 			/>
+		</div>
+		<div
+			on:mouseenter={() => showPivote(true)}
+			on:mouseleave={() => showPivote(false)}
+			role="button"
+			tabindex={2}
+		>
 			<Slider
-				parameterStore={$inputs.y}
-				min={$resolution.h * -2}
-				max={$resolution.h * 2}
-				label="y"
+				parameterStore={$inputs.pivoteY}
+				min={$resolution.h * -1}
+				max={$resolution.h}
+				label="Pivote y"
 				fixed={0}
 			/>
-			<Slider parameterStore={$inputs.rotation} min={-360} max={360} label="Rotation" fixed={0} />
-			<Slider parameterStore={$inputs.scale} min={0} max={10} step={0.01} label="Scale" />
-			<div
-				on:mouseenter={() => showPivote(true)}
-				on:mouseleave={() => showPivote(false)}
-				role="button"
-				tabindex={1}
-			>
-				<Slider
-					parameterStore={$inputs.pivoteX}
-					min={$resolution.w * -1}
-					max={$resolution.w}
-					label="Pivote x"
-					fixed={0}
-				/>
-			</div>
-			<div
-				on:mouseenter={() => showPivote(true)}
-				on:mouseleave={() => showPivote(false)}
-				role="button"
-				tabindex={2}
-			>
-				<Slider
-					parameterStore={$inputs.pivoteY}
-					min={$resolution.h * -1}
-					max={$resolution.h}
-					label="Pivote y"
-					fixed={0}
-				/>
-			</div>
 		</div>
-		<div class="input-anchor">
-			<Anchor key="buffer" inputsStore={inputs} input />
-		</div>
-		<div class="output-anchor">
-			<Anchor outputStore={output} output />
-		</div>
+	</div>
+	<div class="input-anchor">
+		<Anchor key="buffer" inputsStore={inputs} input />
+	</div>
+	<div class="output-anchor">
+		<Anchor outputStore={output} output />
 	</div>
 </BaseNode>
 
 <style>
-	.node {
-		padding: 0px 15px;
-		margin-bottom: 20px;
-	}
-	.name {
-		background-color: var(--transformation-color);
-	}
 	.sliders {
 		margin-top: 50px;
 		display: flex;

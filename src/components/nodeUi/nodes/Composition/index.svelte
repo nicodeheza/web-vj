@@ -54,11 +54,8 @@
 	}
 </script>
 
-<BaseNode {id} {connections} {position} let:disconnect>
-	<div class="node">
-		<div class="node-title name">
-			<h1>Composition</h1>
-		</div>
+<BaseNode {id} {connections} {position} type="composition" label="Composition" let:disconnect>
+	<div class="inner">
 		<div class="elements">
 			{#if instance}
 				<ul>
@@ -102,10 +99,6 @@
 </BaseNode>
 
 <style>
-	.name {
-		background-color: var(--composition-color);
-	}
-
 	.input-anchor {
 		position: absolute;
 		left: -7px;
@@ -118,10 +111,10 @@
 		top: calc(50% + 4px);
 	}
 
-	.node {
+	.inner {
 		padding: 20px;
-		min-width: 200px;
-		min-height: 60px;
+		min-width: 150px;
+		min-height: 50px;
 	}
 
 	.elements {
