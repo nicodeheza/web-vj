@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Composition from '$lib/appComponents/Composition'
 	import type { CompositionI, TransformationsI } from '$lib/appComponents/types'
-	import { Anchor, Node, generateInput, generateOutput } from 'svelvet'
+	import { Anchor, generateInput, generateOutput } from 'svelvet'
 	import CustomAnchor from '../anchors/CustomAnchor.svelte'
 	import Items from './Items.svelte'
 	import type { Position } from '$lib/fileSystem/types'
@@ -13,6 +13,7 @@
 
 	let instance: CompositionI
 	let isConnecting: boolean
+	let firstLoad = true
 
 	interface InputStructure {
 		element: TransformationsI[]
@@ -27,8 +28,12 @@
 	const processor = (inputs: InputStructure) => {
 		if (!instance && inputs.element[0]) instance = new Composition()
 		if (instance && inputs.element[0]) {
-			if (!instance.ids[inputs.element[0].id]) {
+			if (!instance.ids[inputs.element[0].id] && (isConnecting || firstLoad)) {
 				instance.add(inputs.element[0])
+
+				if (firstLoad) {
+					setTimeout(() => (firstLoad = false), 500)
+				}
 			}
 
 			instance = instance

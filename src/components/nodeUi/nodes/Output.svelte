@@ -28,7 +28,7 @@
 		return input.element[0]
 	}
 
-	const output = generateOutput(inputs, processor)
+	generateOutput(inputs, processor)
 </script>
 
 <BaseNode
