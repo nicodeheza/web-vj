@@ -22,8 +22,8 @@ export interface TransformationProps {
 	y: number
 	rotation: number
 	scale: number
-	pivoteX: number
-	pivoteY: number
+	pivotX: number
+	pivotY: number
 }
 export interface TransformationRecord extends NodeRecord {
 	type: 'transformation'

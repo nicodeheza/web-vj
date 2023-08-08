@@ -28,8 +28,8 @@ export const getBaseTransformation = (): TransformationRecord => ({
 		y: 0,
 		rotation: 0,
 		scale: 1,
-		pivoteX: 0,
-		pivoteY: 0
+		pivotX: 0,
+		pivotY: 0
 	}
 })
 

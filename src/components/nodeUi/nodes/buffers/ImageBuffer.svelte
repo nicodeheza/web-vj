@@ -2,7 +2,9 @@
 	import { generateInput, generateOutput } from 'svelvet'
 	import ImageBuffer from '$lib/appComponents/ImageBuffer'
 	import BufferBase from './BufferBase.svelte'
-	import type { ImageBufferProps, Position } from '$lib/fileSystem/types'
+	import type { ImageBufferProps, ImageBufferRecord, Position } from '$lib/fileSystem/types'
+	import { nodeRecords } from 'store/nodes'
+	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
 
 	export let id: string
 	export let connections: string[]
@@ -24,7 +26,10 @@
 
 	const processor = (input: Input) => {
 		if (instance) {
+			const { props } = $nodeRecords.get(id) as ImageBufferRecord
 			instance.uri = input.uri
+			props.url = input.uri
+			updateNodeRecordStorage($nodeRecords)
 		} else {
 			instance = new ImageBuffer(input.uri)
 		}

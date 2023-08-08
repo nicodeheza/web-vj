@@ -16,6 +16,7 @@
 		updateNodeRecordStorage($nodeRecords)
 	}
 
+	// <<<<save props sates and make run data transfers>>>>
 	function onDisconnect(e: CustomEvent) {
 		const sourceId = e.detail.sourceNode.id.split('N-')[1]
 		const targetId = e.detail.targetNode.id.split('N-')[1]

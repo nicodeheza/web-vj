@@ -1,10 +1,12 @@
 <script lang="ts">
 	import Transformations from '$lib/appComponents/Transformation'
 	import type { BufferI } from '$lib/appComponents/types'
-	import type { Position, TransformationProps } from '$lib/fileSystem/types'
+	import type { Position, TransformationProps, TransformationRecord } from '$lib/fileSystem/types'
 	import { resolution } from 'store/p5'
 	import { Anchor, Slider, generateInput, generateOutput } from 'svelvet'
 	import BaseNode from './BaseNode.svelte'
+	import { nodeRecords } from 'store/nodes'
+	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
 
 	export let id: string
 	export let connections: string[]
@@ -19,8 +21,8 @@
 		y: number
 		rotation: number
 		scale: number
-		pivoteX: number
-		pivoteY: number
+		pivotX: number
+		pivotY: number
 		buffer: BufferI | boolean
 		name: string
 	}
@@ -34,14 +36,31 @@
 
 	const processor = (inputs: Inputs) => {
 		if (instance) {
+			const { props: nodeProps } = $nodeRecords.get(id) as TransformationRecord
 			instance.x = inputs.x
+			nodeProps.x = inputs.x
+
 			instance.y = inputs.y
+			nodeProps.y = inputs.y
+
 			instance.rotation = inputs.rotation
+			nodeProps.rotation = inputs.rotation
+
 			instance.scale = inputs.scale
-			instance.pivotX = inputs.pivoteX
-			instance.pivotY = inputs.pivoteY
+			nodeProps.scale = inputs.scale
+
+			instance.pivotX = inputs.pivotX
+			nodeProps.pivotX = inputs.pivotX
+
+			instance.pivotY = inputs.pivotY
+			nodeProps.pivotY = inputs.pivotY
+
 			instance.name = inputs.name
+			nodeProps.name = inputs.name
+
 			instance.buffer = inputs.buffer as BufferI
+
+			updateNodeRecordStorage($nodeRecords)
 		} else if (inputs.buffer) {
 			instance = new Transformations(
 				inputs.buffer as BufferI,
@@ -101,7 +120,7 @@
 			tabindex={1}
 		>
 			<Slider
-				parameterStore={$inputs.pivoteX}
+				parameterStore={$inputs.pivotX}
 				min={$resolution.w * -1}
 				max={$resolution.w}
 				label="Pivote x"
@@ -115,7 +134,7 @@
 			tabindex={2}
 		>
 			<Slider
-				parameterStore={$inputs.pivoteY}
+				parameterStore={$inputs.pivotY}
 				min={$resolution.h * -1}
 				max={$resolution.h}
 				label="Pivote y"
