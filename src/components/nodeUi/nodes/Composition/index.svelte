@@ -27,7 +27,7 @@
 	const processor = (inputs: InputStructure) => {
 		if (!instance && inputs.element[0]) instance = new Composition()
 		if (instance && inputs.element[0]) {
-			if (!instance.ids[inputs.element[0].id] && isConnecting) {
+			if (!instance.ids[inputs.element[0].id]) {
 				instance.add(inputs.element[0])
 			}
 
