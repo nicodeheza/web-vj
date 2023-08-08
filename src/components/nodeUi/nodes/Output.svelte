@@ -9,6 +9,7 @@
 	export let position: Position
 	export let connections: string[]
 	let isConnecting = false
+	let firstLoad = true
 
 	interface Input {
 		element: BufferRenderer[]
@@ -21,9 +22,10 @@
 	const inputs = generateInput(initialData)
 
 	const processor = (input: Input) => {
-		if (input.element[0] && isConnecting) {
+		if (input.element[0] && (isConnecting || firstLoad)) {
 			bufferOutput.set(input.element[0])
 			$reload = true
+			firstLoad = false
 		}
 		return input.element[0]
 	}
