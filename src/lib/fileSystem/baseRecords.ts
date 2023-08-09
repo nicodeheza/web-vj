@@ -3,7 +3,8 @@ import type {
 	ImageBufferRecord,
 	TransformationRecord,
 	BufferRendererRecord,
-	CompositionRecord
+	CompositionRecord,
+	VideoBufferRecord
 } from './types'
 import { v4 as uuid } from 'uuid'
 
@@ -14,6 +15,16 @@ export const getBaseImageBuffer = (): ImageBufferRecord => ({
 	type: 'imageBuffer',
 	props: {
 		url: 'img/test.jpg'
+	}
+})
+
+export const getBaseVideoBuffer = (): VideoBufferRecord => ({
+	connections: [],
+	position: { x: 0, y: 0 },
+	id: uuid(),
+	type: 'videoBuffer',
+	props: {
+		url: 'vid/test.mp4'
 	}
 })
 

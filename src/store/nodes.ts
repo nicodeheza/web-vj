@@ -3,12 +3,14 @@ import type {
 	CompositionRecord,
 	ImageBufferRecord,
 	TransformationRecord,
-	OutputRecord
+	OutputRecord,
+	VideoBufferRecord
 } from '$lib/fileSystem/types'
 import { writable } from 'svelte/store'
 
 export type NodeRecord =
 	| ImageBufferRecord
+	| VideoBufferRecord
 	| TransformationRecord
 	| BufferRendererRecord
 	| CompositionRecord

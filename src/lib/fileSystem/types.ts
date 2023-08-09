@@ -16,6 +16,11 @@ export interface ImageBufferRecord extends NodeRecord {
 	props: ImageBufferProps
 }
 
+export interface VideoBufferRecord extends NodeRecord {
+	type: 'videoBuffer'
+	props: ImageBufferProps
+}
+
 export interface TransformationProps {
 	name: string
 	x: number

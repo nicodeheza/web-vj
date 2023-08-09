@@ -9,6 +9,7 @@
 	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
 	import { onMount } from 'svelte'
+	import VideoBuffer from 'components/nodeUi/nodes/buffers/VideoBuffer.svelte'
 
 	onMount(() => {
 		const storage = localStorage.getItem('nodeRecords')
@@ -26,6 +27,13 @@
 		{#each $nodeRecords.values() as record (record.id)}
 			{#if record.type === 'imageBuffer'}
 				<ImageBuffer
+					id={record.id}
+					connections={record.connections}
+					position={record.position}
+					props={record.props}
+				/>
+			{:else if record.type === 'videoBuffer'}
+				<VideoBuffer
 					id={record.id}
 					connections={record.connections}
 					position={record.position}

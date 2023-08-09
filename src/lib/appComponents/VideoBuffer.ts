@@ -10,12 +10,15 @@ export interface VideoI extends P5.Image {
 }
 
 export default class VideoBuffer implements BufferI {
-	private p5: P5
+	private p5?: P5
 	uri: string
 	img?: VideoI
-	constructor(uri: string, p5: P5) {
-		this.p5 = p5
+	constructor(uri: string) {
 		this.uri = uri
+	}
+
+	install(p5: P5) {
+		this.p5 = p5
 	}
 
 	preload() {
@@ -23,6 +26,7 @@ export default class VideoBuffer implements BufferI {
 	}
 
 	setup() {
+		if (!this.p5) return
 		this.img = this.p5.createVideo(this.uri) as unknown as VideoI
 		if (!this.img) return
 		this.img.volume(0)
