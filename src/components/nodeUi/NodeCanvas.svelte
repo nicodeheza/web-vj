@@ -54,8 +54,8 @@
 		left: 0px;
 	}
 	:global(.svelvet-node) {
-		background-color: rgba(131, 131, 131, 0.3) !important;
-		backdrop-filter: blur(4px);
+		background-color: rgb(46, 46, 46) !important;
+		/* backdrop-filter: blur(4px); */
 		padding: 0 !important;
 	}
 
