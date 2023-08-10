@@ -21,15 +21,18 @@
 	export let position: Position
 	export let connections: string[]
 	export let id: string
+	export let width = 200
+	export let height = 100
 </script>
 
-<BaseNode width={200} height={100} {id} {connections} type="imageBuffer" label={name} bind:position>
+<BaseNode {width} {height} {id} {connections} type="imageBuffer" label={name} bind:position>
 	<div class="buffer-input-container">
 		<input type="text" bind:value={textVal} />
 	</div>
 	<div class="output-container">
 		<Anchor {outputStore} output />
 	</div>
+	<slot />
 </BaseNode>
 
 <style>
@@ -40,12 +43,10 @@
 		top: 0;
 		left: 0;
 
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		text-align: center;
 	}
 	.buffer-input-container input {
-		margin-top: 30px;
+		margin-top: 53px;
 	}
 	.output-container {
 		position: absolute;

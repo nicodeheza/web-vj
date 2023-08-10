@@ -49,6 +49,48 @@
 		$input.uri.set(textVal)
 	}
 	const output = generateOutput(input, processor)
+
+	const play = () => instance?.play()
+	const pause = () => instance?.pause()
+	const stop = () => instance?.stop()
 </script>
 
-<BufferBase {id} {position} {connections} name="Video Buffer" bind:textVal outputStore={output} />
+<BufferBase
+	height={130}
+	{id}
+	{position}
+	{connections}
+	name="Video Buffer"
+	bind:textVal
+	outputStore={output}
+>
+	<div class="controls">
+		<button on:click={play}>play</button>
+		<button on:click={pause}>pause</button>
+		<button on:click={stop}>stop</button>
+	</div>
+</BufferBase>
+
+<style>
+	.controls {
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+		width: 100%;
+
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		margin-bottom: 15px;
+	}
+
+	.controls button {
+		border: solid white 1px;
+		border-radius: 5px;
+		background-color: transparent;
+		color: white;
+
+		cursor: pointer;
+	}
+</style>
