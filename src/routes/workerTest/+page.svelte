@@ -2,16 +2,30 @@
 	import { onMount } from 'svelte'
 
 	let worker: Worker
+	let canvas: HTMLCanvasElement
 
 	onMount(async () => {
-		const Worker = await import('$lib/workers/p5.worker?worker')
+		const Worker = await import('$lib/workers/pixi.worker?worker')
 
 		worker = new Worker.default()
 
-		worker.addEventListener('message', (msg) => {
-			console.log(msg)
-		})
+		canvas.style.width = '600px'
+		canvas.style.height = '600px'
+		const view = canvas.transferControlToOffscreen()
+
+		worker.postMessage(
+			{
+				options: {
+					width: 600,
+					height: 600,
+					resolution: window.devicePixelRatio,
+					view,
+					background: '0x1099bb'
+				}
+			},
+			[view]
+		)
 	})
 </script>
 
-<h1>Test worker</h1>
+<canvas bind:this={canvas} />
