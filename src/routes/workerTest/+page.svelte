@@ -35,31 +35,30 @@
 		)
 	})
 
-	const sendVideo = () => {
-		if (!imageCapture || !imageCapture.track.enabled || imageCapture.track.readyState !== 'live')
+	const sendVideo = async () => {
+		if (
+			!imageCapture ||
+			!imageCapture.track.enabled ||
+			imageCapture.track.readyState !== 'live' ||
+			imageCapture.track.muted
+		)
 			return
-		imageCapture
-			.grabFrame()
-			.then((videoBitmap) => {
-				worker.postMessage({ videoBitmap }, [videoBitmap])
-			})
-			.catch(console.error)
+		try {
+			const videoBitmap = await imageCapture.grabFrame()
 
-		requestAnimationFrame(sendVideo)
+			worker.postMessage({ videoBitmap }, [videoBitmap])
+
+			requestAnimationFrame(sendVideo)
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	const onPlay = () => {
 		const stream = (video as HTMLVideoElementWithCaptureStream).captureStream()
 		const [track] = stream.getVideoTracks()
-		const mediaProcessor = new MediaStreamTrackProcessor({ track } as {
-			track: MediaStreamTrack & MediaStreamAudioTrack
-		})
-		const reader = mediaProcessor.readable
-
-		worker.postMessage({ frameSource: reader }, [reader])
-
-		// imageCapture = new ImageCapture(track)
-		// requestAnimationFrame(sendVideo)
+		imageCapture = new ImageCapture(track)
+		requestAnimationFrame(sendVideo)
 	}
 </script>
 
