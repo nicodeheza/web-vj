@@ -1,8 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
 
+	interface HTMLVideoElementWithCaptureStream extends HTMLVideoElement {
+		captureStream(): MediaStream
+	}
+
 	let worker: Worker
 	let canvas: HTMLCanvasElement
+	let video: HTMLVideoElement
+	let imageCapture: ImageCapture
+
+	let count = 0
 
 	onMount(async () => {
 		const Worker = await import('$lib/workers/pixi.worker?worker')
@@ -26,6 +34,39 @@
 			[view]
 		)
 	})
+
+	const sendVideo = () => {
+		if (!imageCapture || !imageCapture.track.enabled || imageCapture.track.readyState !== 'live')
+			return
+		imageCapture
+			.grabFrame()
+			.then((videoBitmap) => {
+				worker.postMessage({ videoBitmap }, [videoBitmap])
+			})
+			.catch(console.error)
+
+		requestAnimationFrame(sendVideo)
+	}
+
+	const onPlay = () => {
+		const stream = (video as HTMLVideoElementWithCaptureStream).captureStream()
+		const [track] = stream.getVideoTracks()
+		imageCapture = new ImageCapture(track)
+		requestAnimationFrame(sendVideo)
+	}
 </script>
 
 <canvas bind:this={canvas} />
+<!-- svelte-ignore a11y-media-has-caption -->
+<video src="/vid/test2.mp4" autoplay muted loop bind:this={video} on:play={onPlay} />
+
+<button on:click={() => setInterval(() => (count += 1), 1)}>press</button>
+<h1>{count}</h1>
+
+<style>
+	video {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+</style>
