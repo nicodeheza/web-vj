@@ -5,7 +5,6 @@ let vidS: Sprite
 let vidT: Texture
 self.onmessage = async (event) => {
 	if (event.data.options) {
-		console.log(0)
 		const { options } = event.data
 		app = new Application(options)
 
@@ -22,7 +21,6 @@ self.onmessage = async (event) => {
 		const video = event.data.videoBitmap
 
 		if (!vidS) {
-			console.log(1)
 			vidT = Texture.from(video)
 			vidS = new Sprite(vidT)
 
