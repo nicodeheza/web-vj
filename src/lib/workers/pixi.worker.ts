@@ -16,11 +16,15 @@ self.onmessage = async (event) => {
 		sprite.angle = 45
 
 		app.stage.addChild(sprite)
-	} else if (event.data.videoBitmap && app) {
-		const video = event.data.videoBitmap
+	} else if (event.data.frameSource && app) {
+		const { frameSource } = event.data as { frameSource: ReadableStream<VideoFrame> }
+		const reader = frameSource.getReader()
+		const result = await reader.read()
+		const frame = result.value
+		if (frame) {
+			console.log('run')
+			const vidT = await getVideoTexture(frame)
 
-		if (!vidS) {
-			const vidT = Texture.from(video)
 			vidS = new Sprite(vidT)
 
 			vidS.anchor.set(0.5)
@@ -30,8 +34,41 @@ self.onmessage = async (event) => {
 			vidS.angle = -45
 
 			app.stage.addChild(vidS)
-		} else {
-			vidS.texture = Texture.from(video)
+
+			// app.ticker.add(async () => {
+			// 	vidS.texture = await getVideoTexture(frame)
+			// })
 		}
+
+		// const video = event.data.videoBitmap
+
+		// if (!vidS) {
+		// 	const vidT = Texture.from(video)
+		// 	vidS = new Sprite(vidT)
+
+		// 	vidS.anchor.set(0.5)
+		// 	vidS.x = app.screen.width / 2 - 100
+		// 	vidS.y = app.screen.height / 2 - 50
+		// 	vidS.scale.set(1)
+		// 	vidS.angle = -45
+
+		// 	app.stage.addChild(vidS)
+		// } else {
+		// 	vidS.texture = Texture.from(video)
+		// }
 	}
+}
+
+async function getVideoTexture(frame: VideoFrame) {
+	console.log('run')
+	const buffer = new Float32Array(frame.allocationSize())
+	await frame.copyTo(buffer)
+	console.log(buffer.length)
+	// frame.close()
+	// const blob = new Blob([buffer], { type: 'image/png' })
+	// const imgUrl = URL.createObjectURL(blob)
+
+	const texture = Texture.fromBuffer(buffer, frame.codedWidth, frame.codedHeight)
+	frame.close()
+	return texture
 }

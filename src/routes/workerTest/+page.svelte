@@ -51,8 +51,15 @@
 	const onPlay = () => {
 		const stream = (video as HTMLVideoElementWithCaptureStream).captureStream()
 		const [track] = stream.getVideoTracks()
-		imageCapture = new ImageCapture(track)
-		requestAnimationFrame(sendVideo)
+		const mediaProcessor = new MediaStreamTrackProcessor({ track } as {
+			track: MediaStreamTrack & MediaStreamAudioTrack
+		})
+		const reader = mediaProcessor.readable
+
+		worker.postMessage({ frameSource: reader }, [reader])
+
+		// imageCapture = new ImageCapture(track)
+		// requestAnimationFrame(sendVideo)
 	}
 </script>
 
