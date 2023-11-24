@@ -32,9 +32,7 @@
 			if (video.readyState > video.HAVE_CURRENT_DATA) {
 				video.requestVideoFrameCallback((time, frame) => {
 					const url = canvas.toDataURL('image/webp')
-
 					if (!framesMap.has(url)) {
-						console.log({ time, frame })
 						framesMap.set(url, {
 							width: frame.width,
 							height: frame.height,
