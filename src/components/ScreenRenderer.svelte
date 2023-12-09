@@ -22,7 +22,7 @@
 					height,
 					resolution: window.devicePixelRatio,
 					view,
-					background: '0x1099bb'
+					background: '0x000'
 				}
 			},
 			[view]
