@@ -1,7 +1,7 @@
 import { getRandomWords } from '$lib/helpers/randomName'
 import type {
 	ImageTextureRecord,
-	TransformationRecord,
+	ElementRecord,
 	BufferRendererRecord,
 	CompositionRecord,
 	VideoTextureRecord
@@ -28,11 +28,11 @@ export const getBaseVideoTexture = (): VideoTextureRecord => ({
 	}
 })
 
-export const getBaseTransformation = (): TransformationRecord => ({
+export const getBaseElement = (): ElementRecord => ({
 	connections: [],
 	position: { x: 0, y: 0 },
 	id: uuid(),
-	type: 'transformation',
+	type: 'element',
 	props: {
 		name: getRandomWords(),
 		x: 0,

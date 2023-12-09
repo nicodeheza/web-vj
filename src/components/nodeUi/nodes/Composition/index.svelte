@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Composition from '$lib/appComponents/Composition'
-	import type { CompositionI, TransformationsI } from '$lib/appComponents/types'
+	import type { CompositionI, ElementsI } from '$lib/appComponents/types'
 	import { Anchor, generateInput, generateOutput } from 'svelvet'
 	import CustomAnchor from '../anchors/CustomAnchor.svelte'
 	import Items from './Items.svelte'
@@ -16,7 +16,7 @@
 	let firstLoad = true
 
 	interface InputStructure {
-		element: TransformationsI[]
+		element: ElementsI[]
 	}
 
 	const initialData = {
@@ -64,10 +64,10 @@
 		<div class="elements">
 			{#if instance}
 				<ul>
-					{#each instance.transformations as transformation}
+					{#each instance.elements as element}
 						<Items
-							name={transformation.name}
-							id={transformation.id}
+							name={element.name}
+							id={element.id}
 							disconnect={(id) => {
 								disconnect(id)
 								remove(id)

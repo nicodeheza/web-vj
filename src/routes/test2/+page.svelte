@@ -3,7 +3,7 @@
 	import Composition from '$lib/appComponents/Composition'
 	import ImageTexture from '$lib/appComponents/ImageTexture'
 	import Shader from '$lib/appComponents/Shader'
-	import Transformations from '$lib/appComponents/Transformation'
+	import Elements from '$lib/appComponents/Element'
 	import VideoTexture from '$lib/appComponents/VideoTexture'
 	import P5Canvas from 'components/P5Canvas.svelte'
 	import type P5 from 'p5'
@@ -22,8 +22,8 @@
 		const shader = new Shader(p5)
 		shader.setShader('shaders/invert/invert.vert', 'shaders/invert/invert.frag')
 		shader.setImageU(buffer2)
-		const trans = new Transformations(buffer, 600, 600, 'test', p5)
-		const trans2 = new Transformations(shader, 600, 600, 'test2', p5)
+		const trans = new Elements(buffer, 600, 600, 'test', p5)
+		const trans2 = new Elements(shader, 600, 600, 'test2', p5)
 		const composition = new Composition()
 		composition.add(trans)
 		composition.add(trans2)

@@ -1,7 +1,7 @@
 import type P5 from 'p5'
-import type { BufferI, TransformationsI } from './types'
+import type { BufferI, ElementsI } from './types'
 
-export default class Transformations implements TransformationsI {
+export default class Elements implements ElementsI {
 	private p5?: P5
 	id: string
 	name: string

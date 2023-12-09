@@ -3,7 +3,7 @@
 	import Composition from 'components/nodeUi/nodes/Composition/index.svelte'
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
 	import Output from 'components/nodeUi/nodes/Output.svelte'
-	import Transformation from 'components/nodeUi/nodes/Transformation.svelte'
+	import Element from 'components/nodeUi/nodes/Element.svelte'
 	import ImageTexture from 'components/nodeUi/nodes/textures/ImageTexture.svelte'
 	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
@@ -39,8 +39,8 @@
 					position={record.position}
 					props={record.props}
 				/>
-			{:else if record.type === 'transformation'}
-				<Transformation
+			{:else if record.type === 'element'}
+				<Element
 					id={record.id}
 					connections={record.connections}
 					position={record.position}
@@ -68,7 +68,7 @@
 	:global(:root) {
 		--buffer-renderer-color: rgb(202, 116, 59);
 		--output-color: rgb(236, 75, 75);
-		--transformation-color: rgb(1, 128, 128);
+		--element-color: rgb(1, 128, 128);
 		--image-buffer-color: rgb(139, 0, 70);
 		--composition-color: rgb(0, 112, 209);
 	}

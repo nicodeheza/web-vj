@@ -74,8 +74,8 @@
 	.imageTexture-color {
 		background-color: var(--image-buffer-color);
 	}
-	.transformation-color {
-		background-color: var(--transformation-color);
+	.element-color {
+		background-color: var(--element-color);
 	}
 	.composition-color {
 		background-color: var(--composition-color);

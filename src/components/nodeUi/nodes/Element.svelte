@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Transformations from '$lib/appComponents/Transformation'
+	import Elements from '$lib/appComponents/Element'
 	import type { BufferI } from '$lib/appComponents/types'
-	import type { Position, TransformationProps, TransformationRecord } from '$lib/fileSystem/types'
+	import type { Position, ElementProps, ElementRecord } from '$lib/fileSystem/types'
 	import { resolution } from 'store/p5'
 	import { Anchor, Slider, generateInput, generateOutput } from 'svelvet'
 	import BaseNode from './BaseNode.svelte'
@@ -11,9 +11,9 @@
 	export let id: string
 	export let connections: string[]
 	export let position: Position
-	export let props: TransformationProps
+	export let props: ElementProps
 
-	let instance: Transformations
+	let instance: Elements
 	let name: string = props.name
 
 	interface Inputs {
@@ -36,7 +36,7 @@
 
 	const processor = (inputs: Inputs) => {
 		if (instance) {
-			const { props: nodeProps } = $nodeRecords.get(id) as TransformationRecord
+			const { props: nodeProps } = $nodeRecords.get(id) as ElementRecord
 			instance.x = inputs.x
 			nodeProps.x = inputs.x
 
@@ -62,7 +62,7 @@
 
 			updateNodeRecordStorage($nodeRecords)
 		} else if (inputs.buffer) {
-			instance = new Transformations(
+			instance = new Elements(
 				inputs.buffer as BufferI,
 				$resolution.w,
 				$resolution.h,
@@ -92,7 +92,7 @@
 	{id}
 	{connections}
 	{position}
-	type="transformation"
+	type="element"
 	label="Screen element"
 >
 	<div class="sliders">

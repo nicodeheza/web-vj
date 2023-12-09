@@ -38,7 +38,7 @@ export interface BufferI {
 	install: (p5: p5) => void
 }
 
-export interface TransformationsI {
+export interface ElementsI {
 	width: number
 	height: number
 	x: number
@@ -60,11 +60,11 @@ export interface CompositionI {
 	preload: () => void
 	setup: () => void
 	draw: () => void
-	add: (transformation: TransformationsI) => void
+	add: (element: ElementsI) => void
 	delete: (id: string) => void
 	moveBack: (id: string) => void
 	moveFront: (id: string) => void
-	transformations: TransformationsI[]
+	elements: ElementsI[]
 	ids: Record<string, boolean>
 }
 

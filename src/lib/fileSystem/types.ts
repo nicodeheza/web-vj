@@ -21,7 +21,7 @@ export interface VideoTextureRecord extends NodeRecord {
 	props: ImageTextureProps
 }
 
-export interface TransformationProps {
+export interface ElementProps {
 	name: string
 	x: number
 	y: number
@@ -30,9 +30,9 @@ export interface TransformationProps {
 	pivotX: number
 	pivotY: number
 }
-export interface TransformationRecord extends NodeRecord {
-	type: 'transformation'
-	props: TransformationProps
+export interface ElementRecord extends NodeRecord {
+	type: 'element'
+	props: ElementProps
 }
 
 export interface BufferRendererRecord extends NodeRecord {
