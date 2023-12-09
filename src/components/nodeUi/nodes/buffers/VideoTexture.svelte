@@ -1,6 +1,6 @@
 <script lang="ts">
-	import VideoBuffer from '$lib/appComponents/VideoBuffer'
-	import type { ImageTextureProps, Position, VideoBufferRecord } from '$lib/fileSystem/types'
+	import VideoTexture from '$lib/appComponents/VideoTexture'
+	import type { ImageTextureProps, Position, VideoTextureRecord } from '$lib/fileSystem/types'
 	import { generateInput, generateOutput } from 'svelvet'
 	import { nodeRecords } from 'store/nodes'
 	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
@@ -11,7 +11,7 @@
 	export let position: Position
 	export let props: ImageTextureProps
 
-	let instance: VideoBuffer
+	let instance: VideoTexture
 	let textVal = props.url
 
 	interface Input {
@@ -26,12 +26,12 @@
 
 	const processor = (input: Input) => {
 		if (instance) {
-			const { props } = $nodeRecords.get(id) as VideoBufferRecord
+			const { props } = $nodeRecords.get(id) as VideoTextureRecord
 			instance.uri = input.uri
 			props.url = input.uri
 			updateNodeRecordStorage($nodeRecords)
 		} else {
-			instance = new VideoBuffer(input.uri)
+			instance = new VideoTexture(input.uri)
 		}
 		return instance
 	}

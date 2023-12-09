@@ -11,7 +11,7 @@ export interface VideoI extends P5.Image {
 	height: number
 }
 
-export default class VideoBuffer implements BufferI {
+export default class VideoTexture implements BufferI {
 	private p5?: P5
 	uri: string
 	img?: VideoI

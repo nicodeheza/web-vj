@@ -4,7 +4,7 @@ import type {
 	TransformationRecord,
 	BufferRendererRecord,
 	CompositionRecord,
-	VideoBufferRecord
+	VideoTextureRecord
 } from './types'
 import { v4 as uuid } from 'uuid'
 
@@ -18,11 +18,11 @@ export const getBaseImageTexture = (): ImageTextureRecord => ({
 	}
 })
 
-export const getBaseVideoBuffer = (): VideoBufferRecord => ({
+export const getBaseVideoTexture = (): VideoTextureRecord => ({
 	connections: [],
 	position: { x: 0, y: 0 },
 	id: uuid(),
-	type: 'videoBuffer',
+	type: 'videoTexture',
 	props: {
 		url: 'vid/test.mp4'
 	}

@@ -4,7 +4,7 @@
 	import ImageTexture from '$lib/appComponents/ImageTexture'
 	import Shader from '$lib/appComponents/Shader'
 	import Transformations from '$lib/appComponents/Transformation'
-	import VideoBuffer from '$lib/appComponents/VideoBuffer'
+	import VideoTexture from '$lib/appComponents/VideoTexture'
 	import P5Canvas from 'components/P5Canvas.svelte'
 	import type P5 from 'p5'
 
@@ -18,7 +18,7 @@
 
 	const sketch = (p5: P5) => {
 		const buffer = new ImageTexture('img/test.jpg', p5)
-		const buffer2 = new VideoBuffer('vid/test.mp4', p5)
+		const buffer2 = new VideoTexture('vid/test.mp4', p5)
 		const shader = new Shader(p5)
 		shader.setShader('shaders/invert/invert.vert', 'shaders/invert/invert.frag')
 		shader.setImageU(buffer2)

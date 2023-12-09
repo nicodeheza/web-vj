@@ -8,7 +8,7 @@
 	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
 	import { onMount } from 'svelte'
-	import VideoBuffer from 'components/nodeUi/nodes/buffers/VideoBuffer.svelte'
+	import VideoTexture from 'components/nodeUi/nodes/buffers/VideoTexture.svelte'
 	import ScreenRenderer from 'components/ScreenRenderer.svelte'
 
 	onMount(() => {
@@ -32,8 +32,8 @@
 					position={record.position}
 					props={record.props}
 				/>
-			{:else if record.type === 'videoBuffer'}
-				<VideoBuffer
+			{:else if record.type === 'videoTexture'}
+				<VideoTexture
 					id={record.id}
 					connections={record.connections}
 					position={record.position}

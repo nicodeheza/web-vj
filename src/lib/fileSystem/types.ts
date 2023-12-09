@@ -16,8 +16,8 @@ export interface ImageTextureRecord extends NodeRecord {
 	props: ImageTextureProps
 }
 
-export interface VideoBufferRecord extends NodeRecord {
-	type: 'videoBuffer'
+export interface VideoTextureRecord extends NodeRecord {
+	type: 'videoTexture'
 	props: ImageTextureProps
 }
 
