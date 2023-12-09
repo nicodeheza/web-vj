@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { generateInput, generateOutput } from 'svelvet'
 	import ImageTexture from '$lib/appComponents/ImageTexture'
-	import BufferBase from './BufferBase.svelte'
+	import BufferBase from './TextureBase.svelte'
 	import type { ImageTextureProps, ImageTextureRecord, Position } from '$lib/fileSystem/types'
 	import { nodeRecords } from 'store/nodes'
 	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'

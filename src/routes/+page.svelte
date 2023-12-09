@@ -4,11 +4,11 @@
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
 	import Output from 'components/nodeUi/nodes/Output.svelte'
 	import Transformation from 'components/nodeUi/nodes/Transformation.svelte'
-	import ImageTexture from 'components/nodeUi/nodes/buffers/ImageTexture.svelte'
+	import ImageTexture from 'components/nodeUi/nodes/textures/ImageTexture.svelte'
 	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
 	import { onMount } from 'svelte'
-	import VideoTexture from 'components/nodeUi/nodes/buffers/VideoTexture.svelte'
+	import VideoTexture from 'components/nodeUi/nodes/textures/VideoTexture.svelte'
 	import ScreenRenderer from 'components/ScreenRenderer.svelte'
 
 	onMount(() => {

@@ -4,7 +4,7 @@
 	import { generateInput, generateOutput } from 'svelvet'
 	import { nodeRecords } from 'store/nodes'
 	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
-	import BufferBase from './BufferBase.svelte'
+	import BufferBase from './TextureBase.svelte'
 
 	export let id: string
 	export let connections: string[]
