@@ -47,6 +47,7 @@
 					props={record.props}
 				/>
 			{:else if record.type === 'bufferRenderer'}
+				<!-- Delete ???? -->
 				<BufferRenderer
 					id={record.id}
 					connections={record.connections}
