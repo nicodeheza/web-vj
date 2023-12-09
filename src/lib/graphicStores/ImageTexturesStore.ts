@@ -3,10 +3,13 @@ import { Texture } from '@pixi/webworker'
 class ImageTexturesStore {
 	private textures: Map<string, Texture> = new Map()
 
-	load(url: string, id: string) {
-		if (this.textures.has(id)) return
-		const texture = Texture.from(url)
-		this.textures.set(id, texture)
+	crateOrUpdate(url: string, id: string) {
+		if (this.textures.has(id)) {
+			const texture = this.get(id)
+			texture?.destroy()
+		}
+		const newTexture = Texture.from(url)
+		this.textures.set(id, newTexture)
 	}
 
 	get(id: string) {

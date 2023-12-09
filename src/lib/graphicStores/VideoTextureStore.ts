@@ -4,8 +4,10 @@ import type { Frame, PixiFrame } from './types'
 class VideoTextureStore {
 	private textures: Map<string, PixiFrame[] | 'loading'> = new Map()
 
-	async load(url: string, id: string) {
-		if (this.textures.has(id)) return
+	async crateOrUpdate(url: string, id: string) {
+		if (this.textures.has(id)) {
+			this.delete(id)
+		}
 		this.textures.set(id, 'loading')
 		const frames = await fetch(url).then<Frame[]>((data) => data.json())
 		const pixiFrames: PixiFrame[] = frames.map(({ image, time }) => ({
@@ -27,12 +29,6 @@ class VideoTextureStore {
 			frame.texture.destroy()
 		})
 		this.textures.delete(id)
-	}
-
-	async update(url: string, id: string) {
-		if (!this.textures.has(id)) return
-		this.delete(id)
-		await this.load(url, id)
 	}
 }
 
