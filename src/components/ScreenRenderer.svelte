@@ -1,10 +1,15 @@
 <script lang="ts">
+	import { resolution } from 'store/p5'
 	import { worker } from 'store/worker'
 	import { onMount } from 'svelte'
 
 	let canvas: HTMLCanvasElement
 	let width: number
 	let height: number
+
+	$: {
+		resolution.set({ w: width, h: height })
+	}
 
 	onMount(async () => {
 		const Worker = await import('$lib/workers/graphics.worker?worker')

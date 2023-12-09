@@ -1,55 +1,67 @@
 <script lang="ts">
 	import { generateInput, generateOutput } from 'svelvet'
-	import ImageTexture from '$lib/appComponents/ImageTexture'
 	import BufferBase from './TextureBase.svelte'
 	import type { ImageTextureProps, ImageTextureRecord, Position } from '$lib/fileSystem/types'
+	import { worker } from 'store/worker'
 	import { nodeRecords } from 'store/nodes'
 	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
+	import { onMount } from 'svelte'
+	import { crateOrEditImageTexture } from '$lib/workerActions/imageTextureActions'
 
 	export let id: string
 	export let connections: string[]
 	export let position: Position
 	export let props: ImageTextureProps
 
-	let instance: ImageTexture
 	let textVal = props.url
 
 	interface Input {
-		uri: string
+		id: string
+		type: string
+		version: number
 	}
 
 	const initialData = {
-		uri: textVal
+		id,
+		type: 'imageTexture',
+		version: 0
 	}
 
 	const input = generateInput(initialData)
 
 	const processor = (input: Input) => {
-		if (instance) {
-			const { props } = $nodeRecords.get(id) as ImageTextureRecord
-			instance.uri = input.uri
-			props.url = input.uri
-			updateNodeRecordStorage($nodeRecords)
-		} else {
-			instance = new ImageTexture(input.uri)
-		}
-		return instance
+		return input
 	}
 
-	let act = true
-	$: if (textVal) {
-		new Promise((r) => {
-			act = false
-			setTimeout(r, 2000)
-		}).then(() => {
-			act = true
-		})
-	}
-	$: if ($input.uri.set && act) {
-		$input.uri.set(textVal)
+	function onLoad() {
+		const { props } = $nodeRecords.get(id) as ImageTextureRecord
+		if (textVal !== props.url) {
+			props.url = textVal
+			updateNodeRecordStorage($nodeRecords)
+		}
+
+		crateOrEditImageTexture(textVal, id)
+
+		if ($input.version.update) {
+			$input.version.update((value) => value + 1)
+		}
 	}
 
 	const output = generateOutput(input, processor)
+
+	onMount(() => {
+		if (textVal) {
+			onLoad()
+		}
+	})
 </script>
 
-<BufferBase {id} {position} {connections} name="Image Buffer" bind:textVal outputStore={output} />
+<BufferBase
+	{onLoad}
+	{id}
+	{position}
+	{connections}
+	name="Image Buffer"
+	bind:textVal
+	outputStore={output}
+/>

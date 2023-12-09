@@ -3,8 +3,11 @@ import { Sprite, type Texture } from '@pixi/webworker'
 class ImageSpriteStor {
 	private sprites: Map<string, Sprite> = new Map()
 
-	crate(id: string, texture: Texture) {
-		if (this.sprites.has(id)) return
+	crateOrReplaceTexture(id: string, texture: Texture) {
+		if (this.sprites.has(id)) {
+			this.replaceTexture(id, texture)
+			return
+		}
 		this.sprites.set(id, new Sprite(texture))
 	}
 

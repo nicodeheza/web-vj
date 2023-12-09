@@ -14,7 +14,7 @@ export const getBaseImageTexture = (): ImageTextureRecord => ({
 	id: uuid(),
 	type: 'imageTexture',
 	props: {
-		url: 'img/test.jpg'
+		url: '/img/test.jpg'
 	}
 })
 

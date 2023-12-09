@@ -1,88 +1,71 @@
 <script lang="ts">
-	import Elements from '$lib/appComponents/Element'
-	import type { BufferI } from '$lib/appComponents/types'
 	import type { Position, ElementProps, ElementRecord } from '$lib/fileSystem/types'
 	import { resolution } from 'store/p5'
 	import { Anchor, Slider, generateInput, generateOutput } from 'svelvet'
 	import BaseNode from './BaseNode.svelte'
-	import { nodeRecords } from 'store/nodes'
-	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
+	import { crateImageElementOrReplaceTexture } from '$lib/workerActions/imageElementActions'
 
 	export let id: string
 	export let connections: string[]
 	export let position: Position
 	export let props: ElementProps
 
-	let instance: Elements
 	let name: string = props.name
+	let texture = { id: '', version: 0 }
 
 	interface Inputs {
+		id: string
+		type: string
 		x: number
 		y: number
 		rotation: number
 		scale: number
 		pivotX: number
 		pivotY: number
-		buffer: BufferI | boolean
+		parent: { id: string; type: string; version: number }
 		name: string
 	}
 
 	const initialData = {
 		...props,
-		buffer: false
+		buffer: '',
+		parent: { id: '', type: '', version: 0 },
+		type: 'imageElement',
+		id
 	}
 
 	const inputs = generateInput(initialData)
 
 	const processor = (inputs: Inputs) => {
-		if (instance) {
-			const { props: nodeProps } = $nodeRecords.get(id) as ElementRecord
-			instance.x = inputs.x
-			nodeProps.x = inputs.x
+		//TODO - add transformations
+		// const { props: nodeProps } = $nodeRecords.get(id) as ElementRecord
+		// nodeProps.x = inputs.x
+		// nodeProps.y = inputs.y
+		// nodeProps.rotation = inputs.rotation
+		// nodeProps.scale = inputs.scale
+		// nodeProps.pivotX = inputs.pivotX
+		// nodeProps.pivotY = inputs.pivotY
+		// nodeProps.name = inputs.name
 
-			instance.y = inputs.y
-			nodeProps.y = inputs.y
+		// updateNodeRecordStorage($nodeRecords)
 
-			instance.rotation = inputs.rotation
-			nodeProps.rotation = inputs.rotation
-
-			instance.scale = inputs.scale
-			nodeProps.scale = inputs.scale
-
-			instance.pivotX = inputs.pivotX
-			nodeProps.pivotX = inputs.pivotX
-
-			instance.pivotY = inputs.pivotY
-			nodeProps.pivotY = inputs.pivotY
-
-			instance.name = inputs.name
-			nodeProps.name = inputs.name
-
-			instance.buffer = inputs.buffer as BufferI
-
-			updateNodeRecordStorage($nodeRecords)
-		} else if (inputs.buffer) {
-			instance = new Elements(
-				inputs.buffer as BufferI,
-				$resolution.w,
-				$resolution.h,
-				inputs.name,
-				id
-			)
+		const parent = inputs.parent
+		if (
+			parent.type === 'imageTexture' &&
+			(texture.id !== parent.id || parent.version !== texture.version)
+		) {
+			crateImageElementOrReplaceTexture(parent.id, id)
+			texture.id = parent.id
+			texture.version = parent.version
 		}
 
-		return [instance]
+		return { id: inputs.id, type: inputs.type }
 	}
 
 	const output = generateOutput(inputs, processor)
 
 	$: if ($inputs?.name?.set) {
 		$inputs.name.set(name)
-	}
-
-	function showPivote(val: boolean) {
-		if (!instance) return
-		instance.showPivot = val
 	}
 </script>
 
@@ -113,12 +96,7 @@
 		/>
 		<Slider parameterStore={$inputs.rotation} min={-360} max={360} label="Rotation" fixed={0} />
 		<Slider parameterStore={$inputs.scale} min={0} max={10} step={0.01} label="Scale" />
-		<div
-			on:mouseenter={() => showPivote(true)}
-			on:mouseleave={() => showPivote(false)}
-			role="button"
-			tabindex={1}
-		>
+		<div role="button" tabindex={1}>
 			<Slider
 				parameterStore={$inputs.pivotX}
 				min={$resolution.w * -1}
@@ -127,12 +105,7 @@
 				fixed={0}
 			/>
 		</div>
-		<div
-			on:mouseenter={() => showPivote(true)}
-			on:mouseleave={() => showPivote(false)}
-			role="button"
-			tabindex={2}
-		>
+		<div role="button" tabindex={2}>
 			<Slider
 				parameterStore={$inputs.pivotY}
 				min={$resolution.h * -1}
@@ -143,7 +116,7 @@
 		</div>
 	</div>
 	<div class="input-anchor">
-		<Anchor key="buffer" inputsStore={inputs} input />
+		<Anchor key="parent" inputsStore={inputs} input />
 	</div>
 	<div class="output-anchor">
 		<Anchor outputStore={output} output />

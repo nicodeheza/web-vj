@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type BufferRenderer from '$lib/appComponents/BufferRenderer'
 	import { Anchor, generateInput, generateOutput } from 'svelvet'
 	import { bufferOutput, reload } from 'store/p5'
 	import CustomAnchor from './anchors/CustomAnchor.svelte'
 	import BaseNode from './BaseNode.svelte'
 	import type { Position } from '$lib/fileSystem/types'
+	import { addChild } from '$lib/workerActions/outputActions'
 
 	export let position: Position
 	export let connections: string[]
@@ -12,22 +12,28 @@
 	let firstLoad = true
 
 	interface Input {
-		element: BufferRenderer[]
+		element: { id: string; type: string }
 	}
 
 	const initialData = {
-		element: []
+		element: { id: '', type: '' }
 	}
 
 	const inputs = generateInput(initialData)
 
+	const acceptedTypes = ['imageElement']
+
 	const processor = (input: Input) => {
-		if (input.element[0] && (isConnecting || firstLoad)) {
-			bufferOutput.set(input.element[0])
-			$reload = true
-			firstLoad = false
+		// if (input.element[0] && (isConnecting || firstLoad)) {
+		// 	bufferOutput.set(input.element[0])
+		// 	$reload = true
+		// 	firstLoad = false
+		// }
+		if (acceptedTypes.includes(input.element.type)) {
+			const { id, type } = input.element
+			addChild(id, type)
 		}
-		return input.element[0]
+		return {}
 	}
 
 	generateOutput(inputs, processor)
@@ -43,7 +49,15 @@
 	label="Output"
 >
 	<div class="input-anchor">
-		<Anchor key="element" let:connecting let:hovering let:linked inputsStore={inputs} input>
+		<Anchor
+			key="element"
+			multiple
+			let:connecting
+			let:hovering
+			let:linked
+			inputsStore={inputs}
+			input
+		>
 			<CustomAnchor
 				{connecting}
 				{hovering}
