@@ -1,5 +1,4 @@
 <script lang="ts">
-	import P5ScreenRenderer from 'components/P5ScreenRenderer.svelte'
 	import BufferRenderer from 'components/nodeUi/nodes/BufferRenderer.svelte'
 	import Composition from 'components/nodeUi/nodes/Composition/index.svelte'
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
@@ -10,6 +9,7 @@
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
 	import { onMount } from 'svelte'
 	import VideoBuffer from 'components/nodeUi/nodes/buffers/VideoBuffer.svelte'
+	import ScreenRenderer from 'components/ScreenRenderer.svelte'
 
 	onMount(() => {
 		const storage = localStorage.getItem('nodeRecords')
@@ -20,7 +20,7 @@
 </script>
 
 <div class="videoOutput">
-	<P5ScreenRenderer />
+	<ScreenRenderer />
 </div>
 <div class="nodeUI">
 	<NodeCanvas>

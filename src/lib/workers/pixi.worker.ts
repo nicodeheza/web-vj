@@ -1,4 +1,4 @@
-import type { Frame } from '$lib/videoJson/types'
+import type { Frame } from '$lib/graphicStores/types'
 import { Application, Sprite, Texture, type ICanvas, AnimatedSprite } from '@pixi/webworker'
 
 let app: Application<ICanvas>
@@ -30,7 +30,7 @@ self.onmessage = async (event) => {
 				animatedSprite.play()
 				animatedSprite.x = 0
 				animatedSprite.y = 0
-				animatedSprite.scale = { x: 0.5, y: 0.5 }
+				animatedSprite.scale.set(0.5)
 				app.stage.addChild(animatedSprite)
 			})
 	}
