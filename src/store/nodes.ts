@@ -1,7 +1,7 @@
 import type {
 	BufferRendererRecord,
 	CompositionRecord,
-	ImageBufferRecord,
+	ImageTextureRecord,
 	TransformationRecord,
 	OutputRecord,
 	VideoBufferRecord
@@ -9,7 +9,7 @@ import type {
 import { writable } from 'svelte/store'
 
 export type NodeRecord =
-	| ImageBufferRecord
+	| ImageTextureRecord
 	| VideoBufferRecord
 	| TransformationRecord
 	| BufferRendererRecord

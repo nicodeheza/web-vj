@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { generateInput, generateOutput } from 'svelvet'
-	import ImageBuffer from '$lib/appComponents/ImageBuffer'
+	import ImageTexture from '$lib/appComponents/ImageTexture'
 	import BufferBase from './BufferBase.svelte'
-	import type { ImageBufferProps, ImageBufferRecord, Position } from '$lib/fileSystem/types'
+	import type { ImageTextureProps, ImageTextureRecord, Position } from '$lib/fileSystem/types'
 	import { nodeRecords } from 'store/nodes'
 	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
 
 	export let id: string
 	export let connections: string[]
 	export let position: Position
-	export let props: ImageBufferProps
+	export let props: ImageTextureProps
 
-	let instance: ImageBuffer
+	let instance: ImageTexture
 	let textVal = props.url
 
 	interface Input {
@@ -26,12 +26,12 @@
 
 	const processor = (input: Input) => {
 		if (instance) {
-			const { props } = $nodeRecords.get(id) as ImageBufferRecord
+			const { props } = $nodeRecords.get(id) as ImageTextureRecord
 			instance.uri = input.uri
 			props.url = input.uri
 			updateNodeRecordStorage($nodeRecords)
 		} else {
-			instance = new ImageBuffer(input.uri)
+			instance = new ImageTexture(input.uri)
 		}
 		return instance
 	}

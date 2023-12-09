@@ -1,7 +1,7 @@
 import type P5 from 'p5'
 import type { BufferI } from './types'
 
-export default class ImageBuffer implements BufferI {
+export default class ImageTexture implements BufferI {
 	private p5?: P5
 	uri: string
 	img?: P5.Image

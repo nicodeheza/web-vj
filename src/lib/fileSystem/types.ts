@@ -8,17 +8,17 @@ interface NodeRecord {
 	position: Position
 }
 
-export interface ImageBufferProps {
+export interface ImageTextureProps {
 	url: string
 }
-export interface ImageBufferRecord extends NodeRecord {
-	type: 'imageBuffer'
-	props: ImageBufferProps
+export interface ImageTextureRecord extends NodeRecord {
+	type: 'imageTexture'
+	props: ImageTextureProps
 }
 
 export interface VideoBufferRecord extends NodeRecord {
 	type: 'videoBuffer'
-	props: ImageBufferProps
+	props: ImageTextureProps
 }
 
 export interface TransformationProps {

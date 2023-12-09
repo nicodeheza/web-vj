@@ -25,7 +25,7 @@
 	export let height = 100
 </script>
 
-<BaseNode {width} {height} {id} {connections} type="imageBuffer" label={name} bind:position>
+<BaseNode {width} {height} {id} {connections} type="imageTexture" label={name} bind:position>
 	<div class="buffer-input-container">
 		<input type="text" bind:value={textVal} />
 	</div>

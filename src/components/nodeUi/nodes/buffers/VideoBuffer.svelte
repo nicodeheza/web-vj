@@ -1,6 +1,6 @@
 <script lang="ts">
 	import VideoBuffer from '$lib/appComponents/VideoBuffer'
-	import type { ImageBufferProps, Position, VideoBufferRecord } from '$lib/fileSystem/types'
+	import type { ImageTextureProps, Position, VideoBufferRecord } from '$lib/fileSystem/types'
 	import { generateInput, generateOutput } from 'svelvet'
 	import { nodeRecords } from 'store/nodes'
 	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
@@ -9,7 +9,7 @@
 	export let id: string
 	export let connections: string[]
 	export let position: Position
-	export let props: ImageBufferProps
+	export let props: ImageTextureProps
 
 	let instance: VideoBuffer
 	let textVal = props.url

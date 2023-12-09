@@ -2,7 +2,7 @@
 	import {
 		getBaseBufferRenderer,
 		getBaseComposition,
-		getBaseImageBuffer,
+		getBaseImageTexture,
 		getBaseTransformation,
 		getBaseVideoBuffer
 	} from '$lib/fileSystem/baseRecords'
@@ -10,7 +10,7 @@
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
 
 	const names: Record<string, string> = {
-		imageBuffer: 'Image Buffer',
+		imageTexture: 'Image Buffer',
 		videoBuffer: 'Video Buffer',
 		transformation: 'Screen element',
 		bufferRenderer: 'Buffer Renderer',
@@ -18,7 +18,7 @@
 	}
 
 	const baseElementsGetters: Record<string, () => NodeRecord> = {
-		imageBuffer: getBaseImageBuffer,
+		imageTexture: getBaseImageTexture,
 		videoBuffer: getBaseVideoBuffer,
 		transformation: getBaseTransformation,
 		bufferRenderer: getBaseBufferRenderer,
@@ -42,7 +42,7 @@
 </section>
 
 <style>
-	.imageBuffer,
+	.imageTexture,
 	.videoBuffer {
 		background-color: var(--image-buffer-color);
 	}

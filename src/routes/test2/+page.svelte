@@ -1,7 +1,7 @@
 <script lang="ts">
 	import BufferRenderer from '$lib/appComponents/BufferRenderer'
 	import Composition from '$lib/appComponents/Composition'
-	import ImageBuffer from '$lib/appComponents/ImageBuffer'
+	import ImageTexture from '$lib/appComponents/ImageTexture'
 	import Shader from '$lib/appComponents/Shader'
 	import Transformations from '$lib/appComponents/Transformation'
 	import VideoBuffer from '$lib/appComponents/VideoBuffer'
@@ -17,7 +17,7 @@
 	let showPivot = false
 
 	const sketch = (p5: P5) => {
-		const buffer = new ImageBuffer('img/test.jpg', p5)
+		const buffer = new ImageTexture('img/test.jpg', p5)
 		const buffer2 = new VideoBuffer('vid/test.mp4', p5)
 		const shader = new Shader(p5)
 		shader.setShader('shaders/invert/invert.vert', 'shaders/invert/invert.frag')

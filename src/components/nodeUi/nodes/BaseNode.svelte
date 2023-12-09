@@ -71,7 +71,7 @@
 	.bufferRenderer-color {
 		background-color: var(--buffer-renderer-color);
 	}
-	.imageBuffer-color {
+	.imageTexture-color {
 		background-color: var(--image-buffer-color);
 	}
 	.transformation-color {

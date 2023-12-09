@@ -1,6 +1,6 @@
 import { getRandomWords } from '$lib/helpers/randomName'
 import type {
-	ImageBufferRecord,
+	ImageTextureRecord,
 	TransformationRecord,
 	BufferRendererRecord,
 	CompositionRecord,
@@ -8,11 +8,11 @@ import type {
 } from './types'
 import { v4 as uuid } from 'uuid'
 
-export const getBaseImageBuffer = (): ImageBufferRecord => ({
+export const getBaseImageTexture = (): ImageTextureRecord => ({
 	connections: [],
 	position: { x: 0, y: 0 },
 	id: uuid(),
-	type: 'imageBuffer',
+	type: 'imageTexture',
 	props: {
 		url: 'img/test.jpg'
 	}

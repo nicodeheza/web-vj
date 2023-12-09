@@ -4,7 +4,7 @@
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
 	import Output from 'components/nodeUi/nodes/Output.svelte'
 	import Transformation from 'components/nodeUi/nodes/Transformation.svelte'
-	import ImageBuffer from 'components/nodeUi/nodes/buffers/ImageBuffer.svelte'
+	import ImageTexture from 'components/nodeUi/nodes/buffers/ImageTexture.svelte'
 	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
 	import { onMount } from 'svelte'
@@ -25,8 +25,8 @@
 <div class="nodeUI">
 	<NodeCanvas>
 		{#each $nodeRecords.values() as record (record.id)}
-			{#if record.type === 'imageBuffer'}
-				<ImageBuffer
+			{#if record.type === 'imageTexture'}
+				<ImageTexture
 					id={record.id}
 					connections={record.connections}
 					position={record.position}
