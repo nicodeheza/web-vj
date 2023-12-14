@@ -1,4 +1,4 @@
-import { Sprite, type Texture } from '@pixi/webworker'
+import { Graphics, Sprite, type Texture } from '@pixi/webworker'
 
 class ImageSpriteStor {
 	private sprites: Map<string, Sprite> = new Map()
@@ -8,7 +8,16 @@ class ImageSpriteStor {
 			this.replaceTexture(id, texture)
 			return
 		}
-		this.sprites.set(id, new Sprite(texture))
+		const sprite = new Sprite(texture)
+		const pivot = new Graphics()
+
+		pivot.beginFill('red')
+		pivot.drawCircle(0, 0, 10)
+		pivot.endFill()
+		pivot.alpha = 0
+
+		sprite.addChild(pivot)
+		this.sprites.set(id, sprite)
 	}
 
 	replaceTexture(id: string, texture: Texture) {
