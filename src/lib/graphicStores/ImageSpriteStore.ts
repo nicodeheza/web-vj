@@ -1,4 +1,4 @@
-import { Graphics, Sprite, type Texture } from '@pixi/webworker'
+import { Graphics, Sprite, Texture } from '@pixi/webworker'
 
 class ImageSpriteStor {
 	private sprites: Map<string, Sprite> = new Map()
@@ -24,6 +24,12 @@ class ImageSpriteStor {
 		const sprite = this.sprites.get(id)
 		if (!sprite) return
 		sprite.texture = texture
+	}
+
+	removeTexture(id: string) {
+		const sprite = this.sprites.get(id)
+		if (!sprite) return
+		sprite.texture = Texture.EMPTY
 	}
 
 	get(id: string) {

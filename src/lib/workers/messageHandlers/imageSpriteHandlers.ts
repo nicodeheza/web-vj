@@ -37,5 +37,11 @@ export const imageSpriteHandlers: Handlers = {
 		sprite.pivot.set(xPos, yPos)
 		sprite.children[0].position.set(xPos, yPos)
 		sprite.children[0].alpha = 1
+	},
+	delete: ({ id }: Action['payload']) => {
+		ImageSpriteStor.delete(id)
+	},
+	removeTexture: ({ id }: Action['payload']) => {
+		ImageSpriteStor.removeTexture(id)
 	}
 }

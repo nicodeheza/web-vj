@@ -8,6 +8,11 @@ import type {
 } from '$lib/fileSystem/types'
 import { writable } from 'svelte/store'
 
+export interface Disconnection {
+	source: string
+	target: string
+}
+
 export type NodeRecord =
 	| ImageTextureRecord
 	| VideoTextureRecord
@@ -23,3 +28,4 @@ const output: OutputRecord = {
 	position: { x: 0, y: 0 }
 }
 export const nodeRecords = writable<Map<string, NodeRecord>>(new Map([['output', output]]))
+export const disconnection = writable<Disconnection>({ source: '', target: '' })

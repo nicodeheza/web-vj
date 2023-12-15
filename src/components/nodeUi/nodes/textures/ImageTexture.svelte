@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { generateInput, generateOutput } from 'svelvet'
-	import BufferBase from './TextureBase.svelte'
-	import type { ImageTextureProps, ImageTextureRecord, Position } from '$lib/fileSystem/types'
-	import { worker } from 'store/worker'
-	import { nodeRecords } from 'store/nodes'
-	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
+	import TextureBase from './TextureBase.svelte'
+	import type { ImageTextureProps, Position } from '$lib/fileSystem/types'
 	import { onMount } from 'svelte'
-	import { crateOrEditImageTexture } from '$lib/workerActions/imageTextureActions'
+	import {
+		crateOrEditImageTexture,
+		deleteImageTexture
+	} from '$lib/workerActions/imageTextureActions'
 
 	export let id: string
 	export let connections: string[]
@@ -32,36 +32,33 @@
 	const processor = (input: Input) => {
 		return input
 	}
+	const output = generateOutput(input, processor)
 
 	function onLoad() {
-		const { props } = $nodeRecords.get(id) as ImageTextureRecord
-		if (textVal !== props.url) {
-			props.url = textVal
-			updateNodeRecordStorage($nodeRecords)
-		}
-
 		crateOrEditImageTexture(textVal, id)
-
 		if ($input.version.update) {
 			$input.version.update((value) => value + 1)
 		}
 	}
-
-	const output = generateOutput(input, processor)
 
 	onMount(() => {
 		if (textVal) {
 			onLoad()
 		}
 	})
+
+	function onDelete() {
+		deleteImageTexture(id)
+	}
 </script>
 
-<BufferBase
+<TextureBase
 	{onLoad}
+	{onDelete}
 	{id}
 	{position}
 	{connections}
-	name="Image Buffer"
+	name="Image Texture"
 	bind:textVal
 	outputStore={output}
 />

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Anchor, generateInput, generateOutput } from 'svelvet'
-	import { bufferOutput, reload } from 'store/p5'
 	import CustomAnchor from './anchors/CustomAnchor.svelte'
 	import BaseNode from './BaseNode.svelte'
 	import type { Position } from '$lib/fileSystem/types'
@@ -9,7 +8,6 @@
 	export let position: Position
 	export let connections: string[]
 	let isConnecting = false
-	let firstLoad = true
 
 	interface Input {
 		element: { id: string; type: string }
@@ -24,11 +22,6 @@
 	const acceptedTypes = ['imageElement']
 
 	const processor = (input: Input) => {
-		// if (input.element[0] && (isConnecting || firstLoad)) {
-		// 	bufferOutput.set(input.element[0])
-		// 	$reload = true
-		// 	firstLoad = false
-		// }
 		if (acceptedTypes.includes(input.element.type)) {
 			const { id, type } = input.element
 			addChild(id, type)

@@ -5,12 +5,14 @@
 	import BaseNode from './BaseNode.svelte'
 	import {
 		crateImageElementOrReplaceTexture,
+		imageElementDelete,
+		imageElementRemoveTexture,
 		imageElementRotate,
 		imageElementScale,
 		imageElementSetPivot,
 		imageElementTranslate
 	} from '$lib/workerActions/imageElementActions'
-	import { onMount } from 'svelte'
+	import type { Disconnection } from 'store/nodes'
 
 	export let id: string
 	export let connections: string[]
@@ -67,9 +69,20 @@
 	}
 
 	const output = generateOutput(inputs, processor)
+
+	function onDelete() {
+		imageElementDelete(id)
+	}
+
+	function onDisconnect(disconnection: Disconnection) {
+		imageElementRemoveTexture(disconnection.target)
+		texture = { id: '', version: 0 }
+	}
 </script>
 
 <BaseNode
+	{onDelete}
+	{onDisconnect}
 	width={250}
 	height={270}
 	{id}

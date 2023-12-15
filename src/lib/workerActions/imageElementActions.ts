@@ -74,10 +74,35 @@ export function imageElementSetPivot([x, y]: [number, number], id: string) {
 		}
 	})
 
-	nodeRecords.subscribe((nodeRecords) => {
+	nodeRecords.update((nodeRecords) => {
 		const node = nodeRecords.get(id) as ElementRecord
 		node.props.pivotX = x
 		node.props.pivotY = y
 		updateNodeRecordStorage(nodeRecords)
+		return nodeRecords
+	})
+}
+
+export function imageElementDelete(id: string) {
+	postAction({
+		action: 'delete',
+		payload: {
+			id
+		}
+	})
+
+	nodeRecords.update((records) => {
+		records.delete(id)
+		updateNodeRecordStorage(records)
+		return records
+	})
+}
+
+export function imageElementRemoveTexture(id: string) {
+	postAction({
+		action: 'removeTexture',
+		payload: {
+			id
+		}
 	})
 }

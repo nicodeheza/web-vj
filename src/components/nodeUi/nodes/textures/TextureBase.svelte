@@ -25,9 +25,19 @@
 	export let height = 100
 	export let onLoad: () => void
 	export let isLoading = false
+	export let onDelete: () => void
 </script>
 
-<BaseNode {width} {height} {id} {connections} type="imageTexture" label={name} bind:position>
+<BaseNode
+	{onDelete}
+	{width}
+	{height}
+	{id}
+	{connections}
+	type="imageTexture"
+	label={name}
+	bind:position
+>
 	<div class="buffer-input-container">
 		<input type="text" bind:value={textVal} />
 		<button on:click={onLoad}>{isLoading ? 'Loading' : 'Refresh'}</button>

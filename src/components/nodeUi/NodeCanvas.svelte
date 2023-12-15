@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
-	import { nodeRecords } from 'store/nodes'
+	import { disconnection, nodeRecords } from 'store/nodes'
 	import { Svelvet, Background } from 'svelvet'
 
 	let w: number
@@ -20,10 +20,11 @@
 	function onDisconnect(e: CustomEvent) {
 		const sourceId = e.detail.sourceNode.id.split('N-')[1]
 		const targetId = e.detail.targetNode.id.split('N-')[1]
-		const record = $nodeRecords.get(sourceId)
-		if (!record) return
-		record.connections = record.connections.filter((id) => id != targetId)
-		$nodeRecords.set(sourceId, record)
+		disconnection.set({ source: sourceId, target: targetId })
+		const source = $nodeRecords.get(sourceId)
+		if (!source) return
+		source.connections = source.connections.filter((id) => id != targetId)
+		$nodeRecords.set(sourceId, source)
 		updateNodeRecordStorage($nodeRecords)
 	}
 </script>
@@ -55,7 +56,6 @@
 	}
 	:global(.svelvet-node) {
 		background-color: rgb(46, 46, 46) !important;
-		/* backdrop-filter: blur(4px); */
 		padding: 0 !important;
 	}
 
