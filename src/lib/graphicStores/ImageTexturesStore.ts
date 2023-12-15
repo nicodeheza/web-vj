@@ -25,6 +25,7 @@ class ImageTexturesStore {
 
 	delete(id: string) {
 		const texture = this.get(id)
+		texture?.baseTexture.destroy()
 		texture?.destroy()
 		this.textures.delete(id)
 	}

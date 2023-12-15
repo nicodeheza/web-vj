@@ -24,10 +24,11 @@ export function imageElementScale([x, y]: [number, number], id: string) {
 			y: String(y)
 		}
 	})
-	nodeRecords.subscribe((nodeRecords) => {
+	nodeRecords.update((nodeRecords) => {
 		const node = nodeRecords.get(id) as ElementRecord
 		node.props.scale = x
 		updateNodeRecordStorage(nodeRecords)
+		return nodeRecords
 	})
 }
 
@@ -40,11 +41,12 @@ export function imageElementTranslate([x, y]: [number, number], id: string) {
 			y: String(y)
 		}
 	})
-	nodeRecords.subscribe((nodeRecords) => {
+	nodeRecords.update((nodeRecords) => {
 		const node = nodeRecords.get(id) as ElementRecord
 		node.props.x = x
 		node.props.y = y
 		updateNodeRecordStorage(nodeRecords)
+		return nodeRecords
 	})
 }
 
@@ -57,10 +59,11 @@ export function imageElementRotate(deg: number, id: string) {
 		}
 	})
 
-	nodeRecords.subscribe((nodeRecords) => {
+	nodeRecords.update((nodeRecords) => {
 		const node = nodeRecords.get(id) as ElementRecord
 		node.props.rotation = deg
 		updateNodeRecordStorage(nodeRecords)
+		return nodeRecords
 	})
 }
 
