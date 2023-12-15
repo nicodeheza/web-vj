@@ -12,7 +12,7 @@
 	export let connections: string[]
 	export let label: string
 	export let type: string
-	export let onDelete: () => void
+	export let onDelete: () => void = () => {}
 	export let onDisconnect: (disconnect: Disconnection) => void = () => {}
 	let drop: undefined | 'center' | 'cursor'
 
