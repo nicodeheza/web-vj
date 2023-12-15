@@ -24,11 +24,9 @@
 	let _pivotX: number
 	let _pivotY: number
 
-	let canSetup = true
-
 	let texture = { id: '', version: 0 }
 
-	$: if (texture.id && canSetup) {
+	function setUp() {
 		const { scale, x, y, rotation, pivotX, pivotY } = props
 		_scale = scale
 		_x = x
@@ -36,10 +34,9 @@
 		_rotation = rotation
 		_pivotX = pivotX
 		_pivotY = pivotY
-
-		canSetup = false
 	}
 
+	$: if (texture.id && _scale === undefined) setUp()
 	$: if (_scale) imageElementScale([_scale, _scale], id)
 	$: if (_x !== undefined && _y !== undefined) imageElementTranslate([_x, _y], id)
 	$: if (_rotation !== undefined) imageElementRotate(_rotation, id)
