@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolution } from 'store/p5'
-	import { worker } from 'store/worker'
+	import { ready, worker } from 'store/worker'
 	import { onMount } from 'svelte'
 
 	let canvas: HTMLCanvasElement
@@ -32,6 +32,8 @@
 			},
 			[view]
 		)
+
+		$ready = true
 	})
 </script>
 

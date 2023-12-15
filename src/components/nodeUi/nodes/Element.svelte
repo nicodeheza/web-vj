@@ -24,26 +24,27 @@
 	let _pivotX: number
 	let _pivotY: number
 
-	onMount(() => {
+	let canSetup = true
+
+	let texture = { id: '', version: 0 }
+
+	$: if (texture.id && canSetup) {
 		const { scale, x, y, rotation, pivotX, pivotY } = props
-		imageElementScale([scale, scale], id)
-		imageElementTranslate([x, y], id)
-		imageElementRotate(rotation, id)
-		imageElementSetPivot([pivotX, pivotY], id)
 		_scale = scale
 		_x = x
 		_y = y
 		_rotation = rotation
 		_pivotX = pivotX
 		_pivotY = pivotY
-	})
 
-	$: imageElementScale([_scale, _scale], id)
-	$: imageElementTranslate([_x, _y], id)
-	$: imageElementRotate(_rotation, id)
-	$: imageElementSetPivot([_pivotX, _pivotY], id)
+		canSetup = false
+	}
 
-	let texture = { id: '', version: 0 }
+	$: if (_scale) imageElementScale([_scale, _scale], id)
+	$: if (_x !== undefined && _y !== undefined) imageElementTranslate([_x, _y], id)
+	$: if (_rotation !== undefined) imageElementRotate(_rotation, id)
+	$: if (_pivotX !== undefined && _pivotY !== undefined)
+		imageElementSetPivot([_pivotX, _pivotY], id)
 
 	interface Inputs {
 		parent: { id: string; type: string; version: number }
@@ -54,7 +55,6 @@
 	}
 
 	const inputs = generateInput(initialData)
-	//TODO - update storage
 	const processor = (inputs: Inputs) => {
 		const parent = inputs.parent
 		if (

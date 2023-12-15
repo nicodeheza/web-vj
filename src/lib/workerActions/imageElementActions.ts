@@ -1,4 +1,7 @@
+import { nodeRecords } from 'store/nodes'
 import { postActionFactory } from '.'
+import type { ElementRecord } from '$lib/fileSystem/types'
+import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
 
 const postAction = postActionFactory('imageElement')
 
@@ -21,6 +24,11 @@ export function imageElementScale([x, y]: [number, number], id: string) {
 			y: String(y)
 		}
 	})
+	nodeRecords.subscribe((nodeRecords) => {
+		const node = nodeRecords.get(id) as ElementRecord
+		node.props.scale = x
+		updateNodeRecordStorage(nodeRecords)
+	})
 }
 
 export function imageElementTranslate([x, y]: [number, number], id: string) {
@@ -32,6 +40,12 @@ export function imageElementTranslate([x, y]: [number, number], id: string) {
 			y: String(y)
 		}
 	})
+	nodeRecords.subscribe((nodeRecords) => {
+		const node = nodeRecords.get(id) as ElementRecord
+		node.props.x = x
+		node.props.y = y
+		updateNodeRecordStorage(nodeRecords)
+	})
 }
 
 export function imageElementRotate(deg: number, id: string) {
@@ -41,6 +55,12 @@ export function imageElementRotate(deg: number, id: string) {
 			id,
 			deg: String(deg)
 		}
+	})
+
+	nodeRecords.subscribe((nodeRecords) => {
+		const node = nodeRecords.get(id) as ElementRecord
+		node.props.rotation = deg
+		updateNodeRecordStorage(nodeRecords)
 	})
 }
 
@@ -52,5 +72,12 @@ export function imageElementSetPivot([x, y]: [number, number], id: string) {
 			x: String(x),
 			y: String(y)
 		}
+	})
+
+	nodeRecords.subscribe((nodeRecords) => {
+		const node = nodeRecords.get(id) as ElementRecord
+		node.props.pivotX = x
+		node.props.pivotY = y
+		updateNodeRecordStorage(nodeRecords)
 	})
 }

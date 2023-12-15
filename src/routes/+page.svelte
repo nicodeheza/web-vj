@@ -10,6 +10,7 @@
 	import { onMount } from 'svelte'
 	import VideoTexture from 'components/nodeUi/nodes/textures/VideoTexture.svelte'
 	import ScreenRenderer from 'components/ScreenRenderer.svelte'
+	import { ready } from 'store/worker'
 
 	onMount(() => {
 		const storage = localStorage.getItem('nodeRecords')
@@ -24,43 +25,45 @@
 </div>
 <div class="nodeUI">
 	<NodeCanvas>
-		{#each $nodeRecords.values() as record (record.id)}
-			{#if record.type === 'imageTexture'}
-				<ImageTexture
-					id={record.id}
-					connections={record.connections}
-					position={record.position}
-					props={record.props}
-				/>
-			{:else if record.type === 'videoTexture'}
-				<VideoTexture
-					id={record.id}
-					connections={record.connections}
-					position={record.position}
-					props={record.props}
-				/>
-			{:else if record.type === 'element'}
-				<Element
-					id={record.id}
-					connections={record.connections}
-					position={record.position}
-					props={record.props}
-				/>
-			{:else if record.type === 'bufferRenderer'}
-				<!-- Delete ???? -->
-				<BufferRenderer
-					id={record.id}
-					connections={record.connections}
-					position={record.position}
-				/>
-			{:else if record.type === 'composition'}
-				<Composition id={record.id} connections={record.connections} position={record.position} />
-			{/if}
-		{/each}
-		<Output
-			position={$nodeRecords.get('output')?.position || { x: 0, y: 0 }}
-			connections={$nodeRecords.get('output')?.connections || []}
-		/>
+		{#if $ready}
+			{#each $nodeRecords.values() as record (record.id)}
+				{#if record.type === 'imageTexture'}
+					<ImageTexture
+						id={record.id}
+						connections={record.connections}
+						position={record.position}
+						props={record.props}
+					/>
+				{:else if record.type === 'videoTexture'}
+					<VideoTexture
+						id={record.id}
+						connections={record.connections}
+						position={record.position}
+						props={record.props}
+					/>
+				{:else if record.type === 'element'}
+					<Element
+						id={record.id}
+						connections={record.connections}
+						position={record.position}
+						props={record.props}
+					/>
+				{:else if record.type === 'bufferRenderer'}
+					<!-- Delete ???? -->
+					<BufferRenderer
+						id={record.id}
+						connections={record.connections}
+						position={record.position}
+					/>
+				{:else if record.type === 'composition'}
+					<Composition id={record.id} connections={record.connections} position={record.position} />
+				{/if}
+			{/each}
+			<Output
+				position={$nodeRecords.get('output')?.position || { x: 0, y: 0 }}
+				connections={$nodeRecords.get('output')?.connections || []}
+			/>
+		{/if}
 	</NodeCanvas>
 	<NodeMenu />
 </div>
