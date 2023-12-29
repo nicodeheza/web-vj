@@ -1,11 +1,11 @@
 import { nodeRecords } from 'store/nodes'
 import { postActionFactory } from '.'
 import { updateNodeRecordStorage } from '$lib/fileSystem/helpers'
-import type { ImageElementRecord } from '$lib/fileSystem/types'
+import type { VideoElementRecord } from '$lib/fileSystem/types'
 
-const postAction = postActionFactory('imageElement')
+const postAction = postActionFactory('videoElement')
 
-export function crateImageElementOrReplaceTexture(textureId: string, id: string) {
+export function crateVideoElementOrReplaceTexture(textureId: string, id: string) {
 	postAction({
 		action: 'crateOrReplaceTexture',
 		payload: {
@@ -15,7 +15,7 @@ export function crateImageElementOrReplaceTexture(textureId: string, id: string)
 	})
 }
 
-export function imageElementScale([x, y]: [number, number], id: string) {
+export function videoElementScale([x, y]: [number, number], id: string) {
 	postAction({
 		action: 'scale',
 		payload: {
@@ -25,14 +25,14 @@ export function imageElementScale([x, y]: [number, number], id: string) {
 		}
 	})
 	nodeRecords.update((nodeRecords) => {
-		const node = nodeRecords.get(id) as ImageElementRecord
+		const node = nodeRecords.get(id) as VideoElementRecord
 		node.props.scale = x
 		updateNodeRecordStorage(nodeRecords)
 		return nodeRecords
 	})
 }
 
-export function imageElementTranslate([x, y]: [number, number], id: string) {
+export function videoElementTranslate([x, y]: [number, number], id: string) {
 	postAction({
 		action: 'translate',
 		payload: {
@@ -42,7 +42,7 @@ export function imageElementTranslate([x, y]: [number, number], id: string) {
 		}
 	})
 	nodeRecords.update((nodeRecords) => {
-		const node = nodeRecords.get(id) as ImageElementRecord
+		const node = nodeRecords.get(id) as VideoElementRecord
 		node.props.x = x
 		node.props.y = y
 		updateNodeRecordStorage(nodeRecords)
@@ -50,7 +50,7 @@ export function imageElementTranslate([x, y]: [number, number], id: string) {
 	})
 }
 
-export function imageElementRotate(deg: number, id: string) {
+export function videoElementRotate(deg: number, id: string) {
 	postAction({
 		action: 'rotate',
 		payload: {
@@ -60,14 +60,14 @@ export function imageElementRotate(deg: number, id: string) {
 	})
 
 	nodeRecords.update((nodeRecords) => {
-		const node = nodeRecords.get(id) as ImageElementRecord
+		const node = nodeRecords.get(id) as VideoElementRecord
 		node.props.rotation = deg
 		updateNodeRecordStorage(nodeRecords)
 		return nodeRecords
 	})
 }
 
-export function imageElementSetPivot([x, y]: [number, number], id: string) {
+export function videoElementSetPivot([x, y]: [number, number], id: string) {
 	postAction({
 		action: 'setPivotPoint',
 		payload: {
@@ -78,7 +78,7 @@ export function imageElementSetPivot([x, y]: [number, number], id: string) {
 	})
 
 	nodeRecords.update((nodeRecords) => {
-		const node = nodeRecords.get(id) as ImageElementRecord
+		const node = nodeRecords.get(id) as VideoElementRecord
 		node.props.pivotX = x
 		node.props.pivotY = y
 		updateNodeRecordStorage(nodeRecords)
@@ -86,7 +86,7 @@ export function imageElementSetPivot([x, y]: [number, number], id: string) {
 	})
 }
 
-export function imageElementDelete(id: string) {
+export function videoElementDelete(id: string) {
 	postAction({
 		action: 'delete',
 		payload: {
@@ -101,11 +101,25 @@ export function imageElementDelete(id: string) {
 	})
 }
 
-export function imageElementRemoveTexture(id: string) {
+export function videoElementRemoveTexture(id: string) {
 	postAction({
 		action: 'removeTexture',
 		payload: {
 			id
 		}
+	})
+}
+
+export function play(id: string) {
+	postAction({
+		action: 'play',
+		payload: { id }
+	})
+}
+
+export function stop(id: string) {
+	postAction({
+		action: 'stop',
+		payload: { id }
 	})
 }

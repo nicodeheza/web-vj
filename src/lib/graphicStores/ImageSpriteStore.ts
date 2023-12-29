@@ -1,4 +1,5 @@
-import { Graphics, Sprite, Texture } from '@pixi/webworker'
+import { Sprite, Texture } from '@pixi/webworker'
+import { cratePivot } from './helpers'
 
 class ImageSpriteStor {
 	private sprites: Map<string, Sprite> = new Map()
@@ -9,12 +10,7 @@ class ImageSpriteStor {
 			return
 		}
 		const sprite = new Sprite(texture)
-		const pivot = new Graphics()
-
-		pivot.beginFill('red')
-		pivot.drawCircle(0, 0, 10)
-		pivot.endFill()
-		pivot.alpha = 0
+		const pivot = cratePivot()
 
 		sprite.addChild(pivot)
 		this.sprites.set(id, sprite)

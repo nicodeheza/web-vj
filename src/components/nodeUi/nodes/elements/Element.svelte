@@ -2,16 +2,7 @@
 	import type { Position, ElementProps } from '$lib/fileSystem/types'
 	import { resolution } from 'store/p5'
 	import { Anchor, generateInput, generateOutput } from 'svelvet'
-	import BaseNode from './BaseNode.svelte'
-	import {
-		crateImageElementOrReplaceTexture,
-		imageElementDelete,
-		imageElementRemoveTexture,
-		imageElementRotate,
-		imageElementScale,
-		imageElementSetPivot,
-		imageElementTranslate
-	} from '$lib/workerActions/imageElementActions'
+	import BaseNode from '../BaseNode.svelte'
 	import type { Disconnection } from 'store/nodes'
 
 	export let id: string
@@ -19,31 +10,56 @@
 	export let position: Position
 	export let props: ElementProps
 
+	export let type: 'imageElement' | 'videoElement'
+
+	export let scale: (scale: [number, number], id: string) => void
+	export let translate: (scale: [number, number], id: string) => void
+	export let rotate: (rotation: number, id: string) => void
+	export let setPivot: (scale: [number, number], id: string) => void
+	export let crateODeleteTexture: (textureId: string, id: string) => void
+	export let deleteElement: (id: string) => void
+	export let removeTexture: (id: string) => void
+	export let play: (id: string) => void = () => {}
+	export let stop: (id: string) => void = () => {}
+
+	const titles = {
+		imageElement: 'Image Element',
+		videoElement: 'Video Element'
+	}
+
 	let _scale: number
 	let _x: number
 	let _y: number
 	let _rotation: number
 	let _pivotX: number
 	let _pivotY: number
+	let _isPlaying: boolean | undefined
 
 	let texture = { id: '', version: 0 }
 
 	function setUp() {
-		const { scale, x, y, rotation, pivotX, pivotY } = props
+		const { scale, x, y, rotation, pivotX, pivotY, isPlaying } = props
 		_scale = scale
 		_x = x
 		_y = y
 		_rotation = rotation
 		_pivotX = pivotX
 		_pivotY = pivotY
+		_isPlaying = isPlaying
 	}
 
 	$: if (texture.id && _scale === undefined) setUp()
-	$: if (_scale) imageElementScale([_scale, _scale], id)
-	$: if (_x !== undefined && _y !== undefined) imageElementTranslate([_x, _y], id)
-	$: if (_rotation !== undefined) imageElementRotate(_rotation, id)
-	$: if (_pivotX !== undefined && _pivotY !== undefined)
-		imageElementSetPivot([_pivotX, _pivotY], id)
+	$: if (_scale) scale([_scale, _scale], id)
+	$: if (_x !== undefined && _y !== undefined) translate([_x, _y], id)
+	$: if (_rotation !== undefined) rotate(_rotation, id)
+	$: if (_pivotX !== undefined && _pivotY !== undefined) setPivot([_pivotX, _pivotY], id)
+	$: if (_isPlaying !== undefined) {
+		if (_isPlaying) {
+			play(id)
+		} else {
+			stop(id)
+		}
+	}
 
 	interface Inputs {
 		parent: { id: string; type: string; version: number }
@@ -57,25 +73,25 @@
 	const processor = (inputs: Inputs) => {
 		const parent = inputs.parent
 		if (
-			parent.type === 'imageTexture' &&
+			(parent.type === 'imageTexture' || parent.type === 'videoTexture') &&
 			(texture.id !== parent.id || parent.version !== texture.version)
 		) {
-			crateImageElementOrReplaceTexture(parent.id, id)
+			crateODeleteTexture(parent.id, id)
 			texture.id = parent.id
 			texture.version = parent.version
 		}
 
-		return { id, type: 'imageElement' }
+		return { id, type }
 	}
 
 	const output = generateOutput(inputs, processor)
 
 	function onDelete() {
-		imageElementDelete(id)
+		deleteElement(id)
 	}
 
 	function onDisconnect(disconnection: Disconnection) {
-		imageElementRemoveTexture(disconnection.target)
+		removeTexture(disconnection.target)
 		texture = { id: '', version: 0 }
 	}
 </script>
@@ -89,7 +105,7 @@
 	{connections}
 	{position}
 	type="element"
-	label="Screen element"
+	label={titles[type]}
 >
 	<div class="sliders">
 		<div>
@@ -140,6 +156,20 @@
 				max={$resolution.h}
 			/>
 		</div>
+		{#if type === 'videoElement'}
+			<div>
+				<button
+					on:click={() => {
+						_isPlaying = true
+					}}>play</button
+				>
+				<button
+					on:click={() => {
+						_isPlaying = false
+					}}>stop</button
+				>
+			</div>
+		{/if}
 	</div>
 	<div class="input-anchor">
 		<Anchor key="parent" inputsStore={inputs} input />

@@ -1,10 +1,11 @@
 import { getRandomWords } from '$lib/helpers/randomName'
 import type {
 	ImageTextureRecord,
-	ElementRecord,
 	BufferRendererRecord,
 	CompositionRecord,
-	VideoTextureRecord
+	VideoTextureRecord,
+	ImageElementRecord,
+	VideoElementRecord
 } from './types'
 import { v4 as uuid } from 'uuid'
 
@@ -24,15 +25,15 @@ export const getBaseVideoTexture = (): VideoTextureRecord => ({
 	id: uuid(),
 	type: 'videoTexture',
 	props: {
-		url: 'vid/test.mp4'
+		url: '/vid/loopTest.json'
 	}
 })
 
-export const getBaseElement = (): ElementRecord => ({
+export const getBaseImageElement = (): ImageElementRecord => ({
 	connections: [],
 	position: { x: 0, y: 0 },
 	id: uuid(),
-	type: 'element',
+	type: 'imageElement',
 	props: {
 		name: getRandomWords(),
 		x: 0,
@@ -41,6 +42,23 @@ export const getBaseElement = (): ElementRecord => ({
 		scale: 1,
 		pivotX: 0,
 		pivotY: 0
+	}
+})
+
+export const getBaseVideoElement = (): VideoElementRecord => ({
+	connections: [],
+	position: { x: 0, y: 0 },
+	id: uuid(),
+	type: 'videoElement',
+	props: {
+		name: getRandomWords(),
+		x: 0,
+		y: 0,
+		rotation: 0,
+		scale: 1,
+		pivotX: 0,
+		pivotY: 0,
+		isPlaying: true
 	}
 })
 

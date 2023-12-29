@@ -29,9 +29,15 @@ export interface ElementProps {
 	scale: number
 	pivotX: number
 	pivotY: number
+	isPlaying?: boolean
 }
-export interface ElementRecord extends NodeRecord {
-	type: 'element'
+export interface ImageElementRecord extends NodeRecord {
+	type: 'imageElement'
+	props: ElementProps
+}
+
+export interface VideoElementRecord extends NodeRecord {
+	type: 'videoElement'
 	props: ElementProps
 }
 

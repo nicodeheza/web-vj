@@ -3,7 +3,7 @@
 	import Composition from 'components/nodeUi/nodes/Composition/index.svelte'
 	import NodeCanvas from 'components/nodeUi/NodeCanvas.svelte'
 	import Output from 'components/nodeUi/nodes/Output.svelte'
-	import Element from 'components/nodeUi/nodes/Element.svelte'
+	import Element from 'components/nodeUi/nodes/elements/Element.svelte'
 	import ImageTexture from 'components/nodeUi/nodes/textures/ImageTexture.svelte'
 	import NodeMenu from 'components/NodesMenu/index.svelte'
 	import { nodeRecords, type NodeRecord } from 'store/nodes'
@@ -11,6 +11,8 @@
 	import VideoTexture from 'components/nodeUi/nodes/textures/VideoTexture.svelte'
 	import ScreenRenderer from 'components/ScreenRenderer.svelte'
 	import { ready } from 'store/worker'
+	import ImageElement from 'components/nodeUi/nodes/elements/ImageElement.svelte'
+	import VideoElement from 'components/nodeUi/nodes/elements/VideoElement.svelte'
 
 	onMount(() => {
 		const storage = localStorage.getItem('nodeRecords')
@@ -41,8 +43,15 @@
 						position={record.position}
 						props={record.props}
 					/>
-				{:else if record.type === 'element'}
-					<Element
+				{:else if record.type === 'imageElement'}
+					<ImageElement
+						id={record.id}
+						connections={record.connections}
+						position={record.position}
+						props={record.props}
+					/>
+				{:else if record.type === 'videoElement'}
+					<VideoElement
 						id={record.id}
 						connections={record.connections}
 						position={record.position}

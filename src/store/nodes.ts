@@ -2,9 +2,10 @@ import type {
 	BufferRendererRecord,
 	CompositionRecord,
 	ImageTextureRecord,
-	ElementRecord,
 	OutputRecord,
-	VideoTextureRecord
+	VideoTextureRecord,
+	ImageElementRecord,
+	VideoElementRecord
 } from '$lib/fileSystem/types'
 import { writable } from 'svelte/store'
 
@@ -16,7 +17,8 @@ export interface Disconnection {
 export type NodeRecord =
 	| ImageTextureRecord
 	| VideoTextureRecord
-	| ElementRecord
+	| ImageElementRecord
+	| VideoElementRecord
 	| BufferRendererRecord
 	| CompositionRecord
 	| OutputRecord

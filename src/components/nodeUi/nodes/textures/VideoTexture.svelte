@@ -26,7 +26,7 @@
 
 	const initialData = {
 		id,
-		type: 'imageTexture',
+		type: 'videoTexture',
 		version: 0
 	}
 

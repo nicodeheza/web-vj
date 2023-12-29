@@ -19,7 +19,7 @@
 
 	const inputs = generateInput(initialData)
 
-	const acceptedTypes = ['imageElement']
+	const acceptedTypes = ['imageElement', 'videoElement']
 
 	const processor = (input: Input) => {
 		if (acceptedTypes.includes(input.element.type)) {

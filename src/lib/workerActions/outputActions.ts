@@ -3,7 +3,8 @@ import { postActionFactory } from '.'
 const postAction = postActionFactory('output')
 
 const typesMap: Record<string, string> = {
-	imageElement: 'imageSprite'
+	imageElement: 'imageSprite',
+	videoElement: 'videoSprite'
 }
 
 export function addChild(childId: string, type: string) {
